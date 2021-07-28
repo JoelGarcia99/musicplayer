@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/home',
         builder: (context, child){
           return FlutterSmartDialog(
-            child: child
+            child: AudioServiceWidget(child: child!)
           );
         },
         routes: buildRoutes(),

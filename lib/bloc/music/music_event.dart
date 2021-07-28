@@ -10,3 +10,17 @@ class AddSongs extends MusicEvent {
     songsState = new MusicInitial(songs);
   }
 }
+
+class AddCurrent extends MusicEvent {
+  late final SongModel song;
+
+  AddCurrent({required SongModel song}) {
+    this.song = song;
+  }
+}
+
+class PausePlayCurrent extends MusicEvent {
+  final bool isRunning;
+
+  PausePlayCurrent({required this.isRunning});
+}

@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/player/audioQuery.dart';
-import 'package:musicplayer/player/component.bottomBar.dart';
+import 'package:musicplayer/player/component.player.dart';
+import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,6 +17,7 @@ class MainPlayerScreen extends StatelessWidget {
   late final AppThemeData theme;
   late final Size screenSize;
   late final BuildContext context;
+  late final MusicBloc bloc;
 
   MainPlayerScreen() {
     this.theme = AppThemeData();
@@ -26,7 +29,7 @@ class MainPlayerScreen extends StatelessWidget {
     this.context = context;
     this.screenSize = MediaQuery.of(context).size;
 
-    final bloc = context.read<MusicBloc>();
+    bloc = context.read<MusicBloc>();
 
     return Scaffold(
       // drawer: ,
@@ -88,29 +91,13 @@ class MainPlayerScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
               child: _buildAppBar(),
             ),
+            Expanded(child: Container()),
             Container(
-              width: double.infinity,
-              height: screenSize.height*0.3,
-              child: FadeInImage(
-                placeholder: AssetImage('assets/images/background.jpg'),
-                image: AssetImage(
-                  'assets/images/background.jpg',                
-                ),
-                fit: BoxFit.fitHeight,
-              ),
+              height: screenSize.height*0.6,
+              width: screenSize.width,
+              child: CustomPlayer()
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                "It's Realme.mp3",
-                style: TextStyle(fontSize: 20.0, color: AppThemeData().iconColor),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              child: PlayerBottomBar(),
-            ),
-            Expanded(child: _getMusicList()),
+            Expanded(child: Container()),
           ],
         ),
       // ),
@@ -123,11 +110,42 @@ class MainPlayerScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         IconButton(
-          icon: Icon(Icons.menu, color: AppThemeData().iconColor,),
+          icon: Icon(
+            Icons.menu, 
+            color: AppThemeData().iconColor,
+          ),
           onPressed: (){
-            // SmartDialog.show(
-            //   widget: widget
-            // );
+
+            SmartDialog.show(
+              clickBgDismissTemp: true,
+              alignmentTemp: Alignment.centerLeft,
+              widget: SafeArea(
+                child: Container(
+                  width: screenSize.width*0.7,
+                  color: Colors.black.withOpacity(0.6),
+                  child: ListView(
+                    children: [
+                      Container(
+                        color: Colors.black,
+                        child: ListTile(
+                          leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
+                          title: Text("Menu", style: TextStyle(color: AppThemeData().iconColor),),
+                          onTap: ()=>SmartDialog.dismiss(),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.graphic_eq, color: AppThemeData().iconColor),
+                        title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
+                        onTap: () {
+                          SmartDialog.dismiss();
+                          Navigator.of(context).pushNamed(Routes.MUSIC_LIST);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              )
+            );
           },
         ),
         IconButton(
@@ -138,75 +156,4 @@ class MainPlayerScreen extends StatelessWidget {
     );
   }
 
-  Widget _getMusicList() {
-
-    return BlocBuilder<MusicBloc, MusicState>(
-      builder: (context, musicState) {
-
-        if(musicState is MusicInitial) {
-
-          final List<SongModel> items = musicState.songs;
-
-          if(items.isEmpty) {
-            return Container(child: Text("There are not items"),);
-          }
-
-          return ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-
-              double size = items[index].size / 1.0;
-              late final sizeUnit;
-
-              if(size < 1000000) {
-                if(size > 1000) {
-                  sizeUnit = 'KB';
-                  size /= 1000;
-                }
-                else {
-                  sizeUnit = 'B';
-                }
-              }
-              else {
-                sizeUnit = 'MB';
-                size /= 1000000;
-              }
-
-              return Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                decoration: BoxDecoration(
-                  color: AppThemeData().cardColor,
-                  borderRadius: BorderRadius.circular(10.0)
-                ),
-                child: ListTile(
-                  title: Text(
-                    items[index].displayName, 
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    "${size.toStringAsFixed(2)} "
-                    "$sizeUnit - ${items[index].composer ?? "unknow author"}"
-                  ),
-                  leading: QueryArtworkWidget(
-                    id: items[index].id,
-                    type: ArtworkType.AUDIO,
-                    artwork: items[index].artwork,
-                    deviceSDK: DeviceHelper().sdk,
-                  ),
-                  trailing: IconButton(
-                    onPressed: (){}, 
-                    icon: Icon(Icons.play_arrow)
-                  )
-                ),
-              );
-            }
-          );
-        }
-
-        return Container(child: Text("There are no musics"),);
-      }
-    );
-  }
 }
