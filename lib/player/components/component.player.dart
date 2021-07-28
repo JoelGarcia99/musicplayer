@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
-import 'package:musicplayer/player/component.progressBar.dart';
-import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+
+import 'component.progressBar.dart';
+import 'controller.player.dart';
 
 class CustomPlayer extends StatelessWidget {
 

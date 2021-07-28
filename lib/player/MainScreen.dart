@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/player/audioQuery.dart';
-import 'package:musicplayer/player/component.player.dart';
-import 'package:musicplayer/player/controller.player.dart';
+import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+
+import 'components/component.player.dart';
 
 class MainPlayerScreen extends StatelessWidget {
 
@@ -35,8 +35,8 @@ class MainPlayerScreen extends StatelessWidget {
       // drawer: ,
       body: Stack(
         children: [
-          _getBackgroundImage(),
-          _getBackgroundColor(),
+          AppThemeData().getBackgroundImage(screenSize),
+          AppThemeData().getBackgroundColor(screenSize),
           Container(
             height: screenSize.height,
             child: FutureBuilder(
@@ -53,30 +53,6 @@ class MainPlayerScreen extends StatelessWidget {
           )
         ],
       )
-    );
-  }
-
-  Widget _getBackgroundImage() {
-    return Container(
-      width: double.infinity,
-      height: screenSize.height,
-      child: Image(
-        image: AssetImage("assets/images/background.jpg"),
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget _getBackgroundColor() {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-      child: Container(
-        width: double.infinity,
-        height: screenSize.height,
-        decoration: const BoxDecoration(
-          color: Colors.black45,
-        ),
-      ),
     );
   }
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
+
+import 'controller.player.dart';
 
 class ProgressBar extends StatelessWidget {
 
@@ -49,8 +50,8 @@ class ProgressBar extends StatelessWidget {
                 },
               ),
               Text(
-                "$minutesProgress:$secondsProgress"
-                "/$minutesSong:$secondsSong",
+                "${(minutesProgress < 10)? "0":""}$minutesProgress:${(secondsProgress < 10)? "0":""}$secondsProgress"
+                "/${(minutesSong < 10)? "0":""}$minutesSong:${(secondsSong < 10)? "0":""}$secondsSong",
                 style: TextStyle(
                   color: AppThemeData().iconColor
                 ),

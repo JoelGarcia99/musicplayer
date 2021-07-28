@@ -19,6 +19,8 @@ class AudioCustomQuery {
       true
     );
 
+    audios = audios.where((element) => element.size >= 1000).toList();
+
     if(withLoader) {
       await SmartDialog.dismiss();
       await SmartDialog.showToast(audios.isEmpty? "There are no audios":"Music loaded");

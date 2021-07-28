@@ -20,15 +20,25 @@ class PlayerController {
   late final AudioPlayer _audioPlayer;
 
   Future<void> setFile(String file) async {
+    await _audioPlayer.stop();
     await _audioPlayer.setFilePath(file);
   }
 
   Future<void> play() async {
-    _audioPlayer.play();
+    await _audioPlayer.play();
   }
 
   Future<void> pause() async {
     await _audioPlayer.pause();
+  }
+
+  Future<void> generatePlaylist(List<AudioSource> audios) async {
+    await _audioPlayer.setAudioSource(
+      ConcatenatingAudioSource(
+        useLazyPreparation: true,
+        children: audios
+      )      
+    );
   }
 
 
