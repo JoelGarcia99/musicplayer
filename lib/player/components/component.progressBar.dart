@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/ui/theme.dart';
 
-import 'controller.player.dart';
+import '../controller.player.dart';
 
 class ProgressBar extends StatelessWidget {
 
@@ -27,10 +27,10 @@ class ProgressBar extends StatelessWidget {
       initialData: Duration(seconds: 0),
       builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
 
-        if(snapshot.data!.inMilliseconds*1.00 >= (controller.player.duration?.inMilliseconds ?? 0) * 1.0) {
-          controller.player.stop();
-          bloc.add(PausePlayCurrent(isRunning: false));
-        }
+        // if(snapshot.data!.inMilliseconds*1.00 >= (controller.player.duration?.inMilliseconds ?? 0) * 1.0) {
+        //   controller.player.stop();
+        //   bloc.add(PausePlayCurrent(isRunning: false));
+        // }
 
         final minutesProgress = snapshot.data!.inMinutes;
         final secondsProgress = snapshot.data!.inSeconds % 60;
@@ -46,7 +46,7 @@ class ProgressBar extends StatelessWidget {
                 max: (controller.player.duration?.inMilliseconds ?? 0) * 1.0,
                 value: snapshot.data!.inMilliseconds*1.00,
                 onChanged: (position){
-
+                  controller.player.seek(Duration(milliseconds: position~/1));
                 },
               ),
               Text(

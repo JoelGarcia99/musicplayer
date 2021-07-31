@@ -13,9 +13,11 @@ class AddSongs extends MusicEvent {
 
 class AddCurrent extends MusicEvent {
   late final SongModel song;
+  late final bool isRunning;
 
   AddCurrent({required SongModel song}) {
     this.song = song;
+    isRunning = true;
   }
 }
 

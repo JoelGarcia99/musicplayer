@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/player/components/component.appBar.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import 'components/controller.player.dart';
+import 'controller.player.dart';
 
 
 class MusicListWidget extends StatelessWidget {
 
   late final Size screenSize;
+  late final MusicBloc bloc;
 
   @override
   Widget build(BuildContext context) {
 
     this.screenSize = MediaQuery.of(context).size;
-    final bloc = context.read<MusicBloc>();
+    this.bloc = context.read<MusicBloc>();
 
     return Scaffold(
       body: BlocBuilder<MusicBloc, MusicState>(
@@ -41,6 +43,8 @@ class MusicListWidget extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       itemCount: items.length,
                       itemBuilder: (context, index) {
+
+                        final playerController = new PlayerController();
                       
                         double size = items[index].size / 1.0;
                         late final sizeUnit;
@@ -58,19 +62,21 @@ class MusicListWidget extends StatelessWidget {
                           sizeUnit = 'MB';
                           size /= 1000000;
                         }
+
+                        final isCurrent = (musicState as MusicWithSelection).current.id == items[index].id;
+                        final isPlaying = isCurrent && playerController.player.playing;
                       
                         return Container(
                           margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                           padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                           decoration: BoxDecoration(
-                            color: AppThemeData().cardColor,
+                            color: isCurrent? AppThemeData().focusCardColo:AppThemeData().cardColor,
                             borderRadius: BorderRadius.circular(10.0),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black45,
                                 blurRadius: 2.0,
                                 offset: Offset(1.0, 2.0),
-                                // spreadRadius: 3.0
                               )
                             ]
                           ),
@@ -92,20 +98,24 @@ class MusicListWidget extends StatelessWidget {
                             ),
                             trailing: IconButton(
                               onPressed: ()async{
-                                final playerController = new PlayerController();
                                 
-                                // stopping current song
-                                await playerController.player.stop();
-                  
-                                await playerController.setFile(items[index].data);
-                                playerController.play();
-                      
-                                bloc.add(AddCurrent(song: items[index]));
+                                if(isCurrent) {
+                                  if(isPlaying) await playerController.pause();
+                                  else playerController.play(isNewSong: false);
 
-                                Navigator.of(context).pop();
-                  
-                              }, 
-                              icon: Icon(Icons.play_arrow)
+                                  bloc.add(PausePlayCurrent(isRunning: !isPlaying));
+                                  Navigator.of(context).pop();
+                                }
+                                else {
+                                  await playerController.play(
+                                    index: AudioCustomQuery.musicDataindex[
+                                      items[index].data
+                                    ] ?? 0,
+                                    isNewSong: true
+                                  );
+                                }
+                              },
+                              icon: Icon(isPlaying? Icons.pause:Icons.play_arrow)
                             )
                           ),
                         );

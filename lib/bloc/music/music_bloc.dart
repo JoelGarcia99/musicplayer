@@ -20,7 +20,8 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
       case AddCurrent:
         yield MusicWithSelection(
           currentSong: (event as AddCurrent).song, 
-          songs: state.songs
+          songs: state.songs,
+          isRunning: true
         );
         break;
       case PausePlayCurrent:

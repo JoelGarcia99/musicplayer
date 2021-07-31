@@ -6,7 +6,7 @@ import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import 'component.progressBar.dart';
-import 'controller.player.dart';
+import '../controller.player.dart';
 
 class CustomPlayer extends StatelessWidget {
 
@@ -35,15 +35,12 @@ class CustomPlayer extends StatelessWidget {
 
   Widget _actionButtons(MusicState state) {
 
-    late final bool isPlaying;
     bool isCurrent = false;
+    final bool isPlaying = (state is MusicWithSelection)? state.isRunning:false;
 
-    if(state is MusicInitial) isPlaying = false;
-    else if(state is MusicWithSelection) {
+    if(state is MusicWithSelection) {
       isCurrent = true;
-      isPlaying = state.isRunning;
     }
-    else isPlaying = false;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +51,9 @@ class CustomPlayer extends StatelessWidget {
             color: isCurrent?AppThemeData().iconColor:Colors.grey,
             size: 40.0,
           ),
-          onPressed: !isCurrent?null:(){},
+          onPressed: !isCurrent?null:()async{
+            await controller.player.seekToPrevious();
+          },
         ),
         IconButton(
           icon: Icon(
@@ -62,17 +61,18 @@ class CustomPlayer extends StatelessWidget {
             color: isCurrent?AppThemeData().iconColor:Colors.grey,
             size: 40.0,
           ),
-          onPressed: ()async {
+          onPressed: !isCurrent?null:()async {
 
             // If it's playing, then I wanna pause it
             if(isPlaying) {
               await controller.pause();
-              bloc.add(PausePlayCurrent(isRunning: false));
             }
             else {
-              await controller.play();
-              bloc.add(PausePlayCurrent(isRunning: true));
+              controller.play(isNewSong: false);
             }
+
+            // updating bloc state in other interfaces
+            bloc.add(PausePlayCurrent(isRunning: !isPlaying));
 
           },
         ),
@@ -82,7 +82,9 @@ class CustomPlayer extends StatelessWidget {
             color: isCurrent?AppThemeData().iconColor:Colors.grey,
             size: 40.0,
           ),
-          onPressed: !isCurrent?null:(){},
+          onPressed: !isCurrent?null:()async{
+            await controller.player.seekToNext();
+          },
         ),
       ],
     );

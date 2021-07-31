@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/helpers/audioQuery.dart';
+import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/router/routes.dart';
  
 void main()async{
@@ -11,6 +13,7 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   
   await DeviceHelper().init();
+  await AudioCustomQuery().quearyAudios(false);
 
   runApp(MyApp());
 }
@@ -18,6 +21,7 @@ void main()async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<MusicBloc>(

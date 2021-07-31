@@ -11,6 +11,7 @@ import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import 'components/component.player.dart';
+import 'controller.player.dart';
 
 class MainPlayerScreen extends StatelessWidget {
 
@@ -18,9 +19,11 @@ class MainPlayerScreen extends StatelessWidget {
   late final Size screenSize;
   late final BuildContext context;
   late final MusicBloc bloc;
+  late final List<SongModel> items;
 
   MainPlayerScreen() {
     this.theme = AppThemeData();
+    this.items = AudioCustomQuery.queryedAudios;
   }
 
   @override
@@ -31,6 +34,13 @@ class MainPlayerScreen extends StatelessWidget {
 
     bloc = context.read<MusicBloc>();
 
+    bloc.add(AddSongs(songs: AudioCustomQuery.queryedAudios));
+
+    // updating application state when a song is changed
+    PlayerController().onMusicSkip((int index){
+      bloc.add(AddCurrent(song: items[index]));
+    });
+
     return Scaffold(
       // drawer: ,
       body: Stack(
@@ -39,17 +49,7 @@ class MainPlayerScreen extends StatelessWidget {
           AppThemeData().getBackgroundColor(screenSize),
           Container(
             height: screenSize.height,
-            child: FutureBuilder(
-              future: AudioCustomQuery().quearyAudios(false),
-              builder: (context, AsyncSnapshot<List<SongModel>> snapshot) {
-                if(!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator(),);
-                }
-                
-                bloc.add(AddSongs(songs: snapshot.data!));
-                return _getContent();
-              },
-            )
+            child: _getContent()
           )
         ],
       )
