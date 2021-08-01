@@ -5,11 +5,21 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
+enum AppBarMenuOptions {
+  All, Singers, Albums, Playlists
+}
+
 class PlayerAppBar extends StatefulWidget {
   final String title;
   final List<Widget>? actions;
   final bool withHeaders;
-  const PlayerAppBar({required this.title, this.actions, this.withHeaders = false});
+  final AppBarMenuOptions active;
+  const PlayerAppBar({
+    required this.title, 
+    this.actions,
+    this.withHeaders = false, 
+    this.active = AppBarMenuOptions.All
+  });
 
   @override
   _PlayerAppBarState createState() => _PlayerAppBarState();
@@ -17,13 +27,11 @@ class PlayerAppBar extends StatefulWidget {
 
 class _PlayerAppBarState extends State<PlayerAppBar> {
 
-  late int selectedIndex;
   late Size screenSize;
 
   @override
   void initState() { 
     super.initState();
-    selectedIndex = 0;
   }
 
   @override
@@ -70,7 +78,7 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
                                   title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
                                   onTap: () {
                                     SmartDialog.dismiss();
-                                    Navigator.of(context).pushNamed(Routes.MUSIC_LIST);
+                                    Navigator.of(context).pushReplacementNamed(Routes.MUSIC_LIST);
                                   },
                                 )
                               ],
@@ -100,28 +108,32 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
                   child: Row(
                     children: [
                       customIndexedButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          Navigator.of(context).pushReplacementNamed(Routes.MUSIC_LIST);
+                        },
                         icon: Icons.equalizer,
                         text: "All",
-                        index: 0
+                        type: AppBarMenuOptions.All
                       ),
                       customIndexedButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          Navigator.of(context).pushReplacementNamed(Routes.SINGERS_LIST);
+                        }, 
                         icon: Icons.person,
                         text: "Singers",
-                        index: 1
+                        type: AppBarMenuOptions.Singers
                       ),
                       customIndexedButton(
                         onPressed: (){}, 
                         icon: Icons.album,
                         text: "Albums",
-                        index: 2
+                        type: AppBarMenuOptions.Albums
                       ),
                       customIndexedButton(
-                        onPressed: (){}, 
+                        onPressed: (){},
                         icon: Icons.library_music,
                         text: "Playlists",
-                        index: 3
+                        type: AppBarMenuOptions.Playlists
                       ),
                     ],
                   ),
@@ -135,20 +147,22 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
     required IconData icon,
     required String text,
     required Function onPressed,
-    required int index
+    required AppBarMenuOptions type
   }) {
     return TextButton.icon(
       onPressed: (){
-        setState(() {
-          selectedIndex = index;
-          onPressed();
-        });
-      }, 
-      icon: Icon(icon, color: selectedIndex==index? Colors.blue:Colors.blueGrey,),
+        if(widget.active == type) return;
+
+        onPressed();
+      },
+      icon: Icon(
+        icon, 
+        color: type==widget.active? Colors.blue:Colors.blueGrey,
+      ),
       label: Text(
         text,
         style: TextStyle(
-          color: selectedIndex==index? Colors.blue:Colors.blueGrey,
+          color:type==widget.active? Colors.blue:Colors.blueGrey,
         ),
       )
     );

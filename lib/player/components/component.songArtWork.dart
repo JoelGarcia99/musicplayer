@@ -1,3 +1,4 @@
+import 'package:animated_overflow/animated_overflow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
@@ -23,6 +24,7 @@ class PlayerArtWork extends StatelessWidget {
     final state = bloc.state;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if(state is MusicWithSelection)
           ...[
@@ -44,11 +46,23 @@ class PlayerArtWork extends StatelessWidget {
               deviceSDK: DeviceHelper().sdk,
             ),
             SizedBox(height: 10.0,),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                state.current.title,
-                style: TextStyle(fontSize: 20.0, color: AppThemeData().iconColor),
+            Center(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: AnimatedOverflow(
+                  speed: 50,
+                  maxWidth: containerSize.width,
+                  animatedOverflowDirection: AnimatedOverflowDirection.HORIZONTAL,
+                  child: Text(
+                    state.current.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    style: TextStyle(                  
+                      fontSize: 20.0, color: AppThemeData().iconColor
+                    ),
+                  ),
+                ),
+                
               ),
             ),
           ]

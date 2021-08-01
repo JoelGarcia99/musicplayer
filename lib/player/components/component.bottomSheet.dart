@@ -2,24 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/player/MainScreen.dart';
 import 'package:musicplayer/player/controller.player.dart';
-import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:route_transitions/route_transitions.dart';
 
 class PlayerBottomSheet extends StatelessWidget {
   final double? height;
-  late final MusicBloc bloc;
+  static MusicBloc? bloc;
   late final PlayerController _controller;
 
-  PlayerBottomSheet({this.height}) {
+  static PlayerBottomSheet? _instance;
+
+  factory PlayerBottomSheet({double? height}) {
+    if(_instance == null) {
+      _instance = new PlayerBottomSheet._(height: height);
+    }
+
+    return _instance!;
+  }
+
+  PlayerBottomSheet._({this.height}) {
     this._controller = new PlayerController();
   }
 
   @override
   Widget build(BuildContext context) {
-    bloc = context.read<MusicBloc>();
+    if(bloc == null) bloc = context.read<MusicBloc>();
 
+    final screenWidth = MediaQuery.of(context).size.width;
     final height = this.height ?? MediaQuery.of(context).size.height * 0.1;
 
     return BlocBuilder<MusicBloc, MusicState>(
@@ -29,29 +41,55 @@ class PlayerBottomSheet extends StatelessWidget {
         final current = state.current;
 
         return GestureDetector(
-          onVerticalDragStart: (_)=>Navigator.of(context).pushNamed(Routes.HOME),
+          onVerticalDragStart: (_)=>slideUpWidget(
+            newPage: MainPlayerScreen(), 
+            context: context
+          ),
           child: Container(
             height: height,
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+            padding: EdgeInsets.symmetric(horizontal: 5.0),
             decoration: BoxDecoration(
               color: Colors.black87,
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                QueryArtworkWidget(
-                  id: current.id, 
-                  type: ArtworkType.AUDIO, 
-                  artwork: current.artwork, 
-                  deviceSDK: DeviceHelper().sdk
+                StreamBuilder(
+                  stream: _controller.player.positionStream,
+                  initialData: Duration(milliseconds: 0),
+                  builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+                    return Container(
+                      height: height * 0.03,
+                      color: Colors.blue,
+                      margin: EdgeInsetsDirectional.only(bottom: 2),
+                      width: screenWidth * 
+                          snapshot.data!.inMilliseconds
+                          / (_controller.player.duration?.inMilliseconds ?? 1),
+                    );
+                  },
                 ),
                 Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: _getSongInfo(current)
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      QueryArtworkWidget(
+                        id: current.id, 
+                        type: ArtworkType.AUDIO, 
+                        artwork: current.artwork, 
+                        deviceSDK: DeviceHelper().sdk,
+                        artworkBorder: BorderRadius.zero,
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: _getSongInfo(current)
+                        ),
+                      ),
+                      _actionButtons(state)
+                    ],
                   ),
                 ),
-                _actionButtons(state)
               ],
             ),
           ),
@@ -63,7 +101,7 @@ class PlayerBottomSheet extends StatelessWidget {
   Widget _getSongInfo(SongModel current) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           current.title,
@@ -71,6 +109,7 @@ class PlayerBottomSheet extends StatelessWidget {
             color: AppThemeData().textColor,
             fontSize: 16.0,
           ),
+          textAlign: TextAlign.left,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
@@ -80,6 +119,7 @@ class PlayerBottomSheet extends StatelessWidget {
             color: AppThemeData().textColor,
             fontSize: 13.0,
           ),
+          textAlign: TextAlign.left,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
@@ -127,7 +167,7 @@ class PlayerBottomSheet extends StatelessWidget {
             }
 
             // updating bloc state in other interfaces
-            bloc.add(PausePlayCurrent(isRunning: !isPlaying));
+            bloc!.add(PausePlayCurrent(isRunning: !isPlaying));
 
           },
         ),

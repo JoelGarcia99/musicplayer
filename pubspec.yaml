@@ -32,6 +32,8 @@ dependencies:
   flutter_smart_dialog: ^2.1.6
   flutter_bloc: ^7.0.1
   bloc: ^7.0.0
+  route_transitions: ^2.0.1
+  animated_overflow: ^2.0.0
   audio_service: ^0.17.1
   just_audio: ^0.9.4
 

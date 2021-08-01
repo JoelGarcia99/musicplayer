@@ -1,8 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 import 'components/component.player.dart';

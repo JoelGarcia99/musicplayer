@@ -6,8 +6,32 @@ import 'package:on_audio_query/on_audio_query.dart';
 class AudioCustomQuery {
 
   static List<SongModel> queryedAudios = [];
+  static List<ArtistModel> queryedArtist = [];
   static Map<String, int> musicDataindex  = new Map<String, int>();
   static Map<int, SongModel> musicDataIndexReverse = new Map<int, SongModel>();
+
+  Future<List<ArtistModel>> queryArtists([withLoader = false, cache=true]) async {
+    
+    if(cache && queryedArtist.isNotEmpty) return queryedArtist;
+
+    if(withLoader) {
+      SmartDialog.showLoading(
+        msg: "Searching for artists",
+      );
+    }
+
+    List<ArtistModel> artists = await OnAudioQuery().queryArtists(
+      ArtistSortType.ARTIST_NAME,
+      OrderType.ASC_OR_SMALLER,
+      UriType.EXTERNAL,
+      true
+    );
+
+    queryedArtist.clear();
+    queryedArtist.addAll(artists);
+
+    return queryedArtist;
+  }
 
   Future<List<SongModel>> quearyAudios([withLoader = true]) async {
 
@@ -40,6 +64,7 @@ class AudioCustomQuery {
         return AudioSource.uri(Uri.parse(e.data));
     }));
 
+    queryedAudios.clear();
     queryedAudios.addAll(audios);
     await PlayerController().generatePlaylist(playlist);
 

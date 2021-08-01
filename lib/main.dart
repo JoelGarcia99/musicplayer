@@ -5,7 +5,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/router/routes.dart';
  
 void main()async{
