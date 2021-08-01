@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ], 
       child: MaterialApp(
         title: 'Material App',
-        initialRoute: '/home',
+        initialRoute: Routes.MUSIC_LIST,
         builder: (context, child){
           return FlutterSmartDialog(
             child: AudioServiceWidget(child: child!)

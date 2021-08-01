@@ -1,29 +1,20 @@
 import 'dart:ui';
 
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 import 'components/component.player.dart';
-import 'controller.player.dart';
 
 class MainPlayerScreen extends StatelessWidget {
 
   late final AppThemeData theme;
   late final Size screenSize;
   late final BuildContext context;
-  late final MusicBloc bloc;
-  late final List<SongModel> items;
 
   MainPlayerScreen() {
     this.theme = AppThemeData();
-    this.items = AudioCustomQuery.queryedAudios;
   }
 
   @override
@@ -32,17 +23,8 @@ class MainPlayerScreen extends StatelessWidget {
     this.context = context;
     this.screenSize = MediaQuery.of(context).size;
 
-    bloc = context.read<MusicBloc>();
-
-    bloc.add(AddSongs(songs: AudioCustomQuery.queryedAudios));
-
-    // updating application state when a song is changed
-    PlayerController().onMusicSkip((int index){
-      bloc.add(AddCurrent(song: items[index]));
-    });
 
     return Scaffold(
-      // drawer: ,
       body: Stack(
         children: [
           AppThemeData().getBackgroundImage(screenSize),
@@ -87,47 +69,21 @@ class MainPlayerScreen extends StatelessWidget {
       children: [
         IconButton(
           icon: Icon(
-            Icons.menu, 
+            Icons.expand_more,
             color: AppThemeData().iconColor,
           ),
           onPressed: (){
-
-            SmartDialog.show(
-              clickBgDismissTemp: true,
-              alignmentTemp: Alignment.centerLeft,
-              widget: SafeArea(
-                child: Container(
-                  width: screenSize.width*0.7,
-                  color: Colors.black.withOpacity(0.6),
-                  child: ListView(
-                    children: [
-                      Container(
-                        color: Colors.black,
-                        child: ListTile(
-                          leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
-                          title: Text("Menu", style: TextStyle(color: AppThemeData().iconColor),),
-                          onTap: ()=>SmartDialog.dismiss(),
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.graphic_eq, color: AppThemeData().iconColor),
-                        title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
-                        onTap: () {
-                          SmartDialog.dismiss();
-                          Navigator.of(context).pushNamed(Routes.MUSIC_LIST);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              )
-            );
+            Navigator.of(context).pop();
           },
         ),
-        IconButton(
-          icon: Icon(Icons.tune, color: AppThemeData().iconColor,),
-          onPressed: ()=>Navigator.of(context).pushNamed(Routes.SETTINGS),
-        )
+        Text(
+          "Music Player",
+          style: TextStyle(
+            color: AppThemeData().iconColor,
+            fontSize: 18
+          ),
+        ),
+        Expanded(child: Container(),)
       ],
     );
   }

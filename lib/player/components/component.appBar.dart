@@ -1,10 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 class PlayerAppBar extends StatefulWidget {
   final String title;
   final List<Widget>? actions;
-  const PlayerAppBar({required this.title, this.actions });
+  final bool withHeaders;
+  const PlayerAppBar({required this.title, this.actions, this.withHeaders = false});
 
   @override
   _PlayerAppBarState createState() => _PlayerAppBarState();
@@ -13,6 +18,7 @@ class PlayerAppBar extends StatefulWidget {
 class _PlayerAppBarState extends State<PlayerAppBar> {
 
   late int selectedIndex;
+  late Size screenSize;
 
   @override
   void initState() { 
@@ -22,6 +28,9 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
 
   @override
   Widget build(BuildContext context) {
+
+    this.screenSize = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Column(
         children: [
@@ -31,8 +40,46 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  onPressed: ()=>Navigator.of(context).pop(), 
-                  icon: Icon(Icons.arrow_back, color: AppThemeData().iconColor)
+                  icon: Icon(
+                    Icons.menu, 
+                    color: AppThemeData().iconColor,
+                  ),
+                  onPressed: (){
+
+                    SmartDialog.show(
+                      clickBgDismissTemp: true,
+                      alignmentTemp: Alignment.centerLeft,
+                      widget: SafeArea(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: Container(
+                            width: screenSize.width*0.7,
+                            color: Colors.black.withOpacity(0.6),
+                            child: ListView(
+                              children: [
+                                Container(
+                                  color: Colors.black,
+                                  child: ListTile(
+                                    leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
+                                    title: Text("Menu", style: TextStyle(color: AppThemeData().iconColor),),
+                                    onTap: ()=>SmartDialog.dismiss(),
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.graphic_eq, color: AppThemeData().iconColor),
+                                  title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
+                                  onTap: () {
+                                    SmartDialog.dismiss();
+                                    Navigator.of(context).pushNamed(Routes.MUSIC_LIST);
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    );
+                  },
                 ),
                 Text(
                   widget.title,
@@ -46,38 +93,39 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
               ],
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
-            child: Row(
-              children: [
-                customIndexedButton(
-                  onPressed: (){}, 
-                  icon: Icons.equalizer,
-                  text: "All",
-                  index: 0
+          if(widget.withHeaders) 
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: Row(
+                    children: [
+                      customIndexedButton(
+                        onPressed: (){}, 
+                        icon: Icons.equalizer,
+                        text: "All",
+                        index: 0
+                      ),
+                      customIndexedButton(
+                        onPressed: (){}, 
+                        icon: Icons.person,
+                        text: "Singers",
+                        index: 1
+                      ),
+                      customIndexedButton(
+                        onPressed: (){}, 
+                        icon: Icons.album,
+                        text: "Albums",
+                        index: 2
+                      ),
+                      customIndexedButton(
+                        onPressed: (){}, 
+                        icon: Icons.library_music,
+                        text: "Playlists",
+                        index: 3
+                      ),
+                    ],
+                  ),
                 ),
-                customIndexedButton(
-                  onPressed: (){}, 
-                  icon: Icons.person,
-                  text: "Singers",
-                  index: 1
-                ),
-                customIndexedButton(
-                  onPressed: (){}, 
-                  icon: Icons.album,
-                  text: "Albums",
-                  index: 2
-                ),
-                customIndexedButton(
-                  onPressed: (){}, 
-                  icon: Icons.library_music,
-                  text: "Playlists",
-                  index: 3
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

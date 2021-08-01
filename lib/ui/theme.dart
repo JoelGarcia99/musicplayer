@@ -45,5 +45,6 @@ class AppThemeData {
   final Color appbarColor = new Color(0xffD9D9D9);
   final Color cardColor = new Color(0xffD9D9D9);
   final Color focusCardColo = new Color(0xffF3FEB0);
+  final Color textColor = new Color(0xffD9D9D9);
 
 }
