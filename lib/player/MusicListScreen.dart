@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
+import 'package:musicplayer/components/component.appBar.dart';
+import 'package:musicplayer/components/component.bottomSheet.dart';
+import 'package:musicplayer/components/component.musicTile.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/player/components/component.appBar.dart';
-import 'package:musicplayer/player/components/component.bottomSheet.dart';
+import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import 'components/component.musicTile.dart';
 import 'controller.player.dart';
 
 
@@ -77,7 +78,12 @@ class MusicListWidget extends StatelessWidget {
   Widget _content(List<SongModel> items, MusicState musicState, BuildContext mainContext) {
     return Column(
       children: [
-        PlayerAppBar(title: "Music list", withHeaders: true,),
+	PlayerAppBar(title: "Music list", withHeaders: true, actions: [
+	  IconButton(
+	      icon: Icon(Icons.settings),
+	      onPressed: ()=>Navigator.of(mainContext).pushNamed(Routes.SETTINGS),
+	  )
+	]),
         Expanded(
           child: ListView.builder(
             physics: BouncingScrollPhysics(),

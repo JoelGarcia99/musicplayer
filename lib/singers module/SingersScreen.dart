@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import 'package:musicplayer/bloc/music/music_bloc.dart';
+import 'package:musicplayer/components/component.appBar.dart';
+import 'package:musicplayer/components/component.bottomSheet.dart';
+import 'package:musicplayer/components/component.singerTile.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/player/components/component.appBar.dart';
-import 'package:musicplayer/player/components/component.bottomSheet.dart';
-import 'package:musicplayer/player/components/component.musicTile.dart';
-import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -78,18 +77,7 @@ class SingersScreen extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (context, index) {
               
-              return Container(
-
-                child: ListTile(
-                  leading: QueryArtworkWidget(
-                    artwork: items[index].artwork,
-                    deviceSDK: DeviceHelper().sdk,
-                    id: items[index].id,
-                    type: ArtworkType.ALBUM,
-                  ),
-                  title: Text(items[index].artistName),
-                ),
-              );
+              return SingerTile(singer: items[index]);
             }
           ),
         ),
@@ -98,3 +86,4 @@ class SingersScreen extends StatelessWidget {
     );
   }
 }
+

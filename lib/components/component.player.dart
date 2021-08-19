@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/player/components/component.songArtWork.dart';
+import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 import 'component.progressBar.dart';
-import '../controller.player.dart';
+import 'component.songArtWork.dart';
 
 class CustomPlayer extends StatelessWidget {
 

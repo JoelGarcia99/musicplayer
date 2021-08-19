@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
+import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
-import '../controller.player.dart';
 
 class MusicTile extends StatelessWidget {
 
@@ -30,23 +29,6 @@ class MusicTile extends StatelessWidget {
 
     this.bloc = context.read<MusicBloc>();
 
-    double size = item.size / 1.0;
-    late final sizeUnit;
-  
-    if(size < 1000000) {
-      if(size > 1000) {
-        sizeUnit = 'KB';
-        size /= 1000;
-      }
-      else {
-        sizeUnit = 'B';
-      }
-    }
-    else {
-      sizeUnit = 'MB';
-      size /= 1000000;
-    }
-
     return Container(
       margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
@@ -68,14 +50,15 @@ class MusicTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: Text(item.artist),
-        leading:  QueryArtworkWidget(
-          keepOldArtwork: true,
-          artworkBorder: BorderRadius.zero,
-          id: item.id,
-          type: ArtworkType.AUDIO,
-          artwork: item.artwork,
-          deviceSDK: DeviceHelper().sdk,
-        ),
+        leading: 
+	  QueryArtworkWidget(
+	    keepOldArtwork: true,
+	    artworkBorder: BorderRadius.zero,
+	    id: item.id,
+	    type: ArtworkType.AUDIO,
+	    artwork: item.artwork,
+	    deviceSDK: DeviceHelper().sdk,
+	  ),
         trailing: IconButton(
           onPressed: ()async{
             

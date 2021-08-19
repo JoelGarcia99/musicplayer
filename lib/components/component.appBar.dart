@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:musicplayer/components/component.drawer.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
@@ -12,10 +13,12 @@ enum AppBarMenuOptions {
 class PlayerAppBar extends StatefulWidget {
   final String title;
   final List<Widget>? actions;
+  final Widget? leading;
   final bool withHeaders;
   final AppBarMenuOptions active;
   const PlayerAppBar({
     required this.title, 
+    this.leading,
     this.actions,
     this.withHeaders = false, 
     this.active = AppBarMenuOptions.All
@@ -47,48 +50,21 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.menu, 
-                    color: AppThemeData().iconColor,
-                  ),
-                  onPressed: (){
+		widget.leading ?? 
+		    IconButton(
+		      icon: Icon(
+			Icons.menu, 
+			color: AppThemeData().iconColor,
+		      ),
+		      onPressed: (){
 
-                    SmartDialog.show(
-                      clickBgDismissTemp: true,
-                      alignmentTemp: Alignment.centerLeft,
-                      widget: SafeArea(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: Container(
-                            width: screenSize.width*0.7,
-                            color: Colors.black.withOpacity(0.6),
-                            child: ListView(
-                              children: [
-                                Container(
-                                  color: Colors.black,
-                                  child: ListTile(
-                                    leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
-                                    title: Text("Menu", style: TextStyle(color: AppThemeData().iconColor),),
-                                    onTap: ()=>SmartDialog.dismiss(),
-                                  ),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.graphic_eq, color: AppThemeData().iconColor),
-                                  title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
-                                  onTap: () {
-                                    SmartDialog.dismiss();
-                                    Navigator.of(context).pushReplacementNamed(Routes.MUSIC_LIST);
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    );
-                  },
-                ),
+			SmartDialog.show(
+			  clickBgDismissTemp: true,
+			  alignmentTemp: Alignment.centerLeft,
+			  widget: PlayerDrawer(parentContext: context,)
+			);
+		      },
+		    ),
                 Text(
                   widget.title,
                   style: TextStyle(

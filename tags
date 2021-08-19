@@ -1,0 +1,75 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+4NT_args	.\android\gradlew.bat	/^:4NT_args$/;"	l
+APPLICATION_ID	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^  public static final String APPLICATION_ID = "com.example.musicplayer";$/;"	f	class:BuildConfig
+APP_BASE_NAME	.\android\gradlew.bat	/^set APP_BASE_NAME=%~n0$/;"	v
+APP_HOME	.\android\gradlew.bat	/^set APP_HOME=%DIRNAME%$/;"	v
+BUILD_TYPE	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\audio_service\generated\source\buildConfig\debug\com\ryanheise\audioservice\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\audio_session\generated\source\buildConfig\debug\com\ryanheise\audio_session\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\flutter_isolate\generated\source\buildConfig\debug\com\rmawatson\flutterisolate\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\just_audio\generated\source\buildConfig\debug\com\ryanheise\just_audio\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\on_audio_query\generated\source\buildConfig\debug\com\lucasjosino\on_audio_query\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\path_provider\generated\source\buildConfig\debug\io\flutter\plugins\pathprovider\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BUILD_TYPE	.\build\sqflite\generated\source\buildConfig\debug\com\tekartik\sqflite\BuildConfig.java	/^  public static final String BUILD_TYPE = "debug";$/;"	f	class:BuildConfig
+BuildConfig	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\audio_service\generated\source\buildConfig\debug\com\ryanheise\audioservice\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\audio_session\generated\source\buildConfig\debug\com\ryanheise\audio_session\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\flutter_isolate\generated\source\buildConfig\debug\com\rmawatson\flutterisolate\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\just_audio\generated\source\buildConfig\debug\com\ryanheise\just_audio\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\on_audio_query\generated\source\buildConfig\debug\com\lucasjosino\on_audio_query\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\path_provider\generated\source\buildConfig\debug\io\flutter\plugins\pathprovider\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+BuildConfig	.\build\sqflite\generated\source\buildConfig\debug\com\tekartik\sqflite\BuildConfig.java	/^public final class BuildConfig {$/;"	c
+CLASSPATH	.\android\gradlew.bat	/^set CLASSPATH=%APP_HOME%\\gradle\\wrapper\\gradle-wrapper.jar$/;"	v
+CMD_LINE_ARGS	.\android\gradlew.bat	/^set CMD_LINE_ARGS=$/;"	v
+CMD_LINE_ARGS	.\android\gradlew.bat	/^set CMD_LINE_ARGS=%*$/;"	v
+CMD_LINE_ARGS	.\android\gradlew.bat	/^set CMD_LINE_ARGS=%\$$/;"	v
+DEBUG	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\audio_service\generated\source\buildConfig\debug\com\ryanheise\audioservice\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\audio_session\generated\source\buildConfig\debug\com\ryanheise\audio_session\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\flutter_isolate\generated\source\buildConfig\debug\com\rmawatson\flutterisolate\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\just_audio\generated\source\buildConfig\debug\com\ryanheise\just_audio\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\on_audio_query\generated\source\buildConfig\debug\com\lucasjosino\on_audio_query\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\path_provider\generated\source\buildConfig\debug\io\flutter\plugins\pathprovider\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEBUG	.\build\sqflite\generated\source\buildConfig\debug\com\tekartik\sqflite\BuildConfig.java	/^  public static final boolean DEBUG = Boolean.parseBoolean("true");$/;"	f	class:BuildConfig
+DEFAULT_JVM_OPTS	.\android\gradlew.bat	/^set DEFAULT_JVM_OPTS=$/;"	v
+DIRNAME	.\android\gradlew.bat	/^if "%DIRNAME%" == "" set DIRNAME=.$/;"	v
+DIRNAME	.\android\gradlew.bat	/^set DIRNAME=%~dp0$/;"	v
+GeneratedPluginRegistrant	.\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java	/^public final class GeneratedPluginRegistrant {$/;"	c
+GeneratedPluginRegistrant_h	.\ios\Runner\GeneratedPluginRegistrant.h	6;"	d
+JAVA_EXE	.\android\gradlew.bat	/^set JAVA_EXE=%JAVA_HOME%\/bin\/java.exe$/;"	v
+JAVA_EXE	.\android\gradlew.bat	/^set JAVA_EXE=java.exe$/;"	v
+JAVA_HOME	.\android\gradlew.bat	/^set JAVA_HOME=%JAVA_HOME:"=%$/;"	v
+LIBRARY_PACKAGE_NAME	.\build\audio_service\generated\source\buildConfig\debug\com\ryanheise\audioservice\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.ryanheise.audioservice";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\audio_session\generated\source\buildConfig\debug\com\ryanheise\audio_session\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.ryanheise.audio_session";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\flutter_isolate\generated\source\buildConfig\debug\com\rmawatson\flutterisolate\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.rmawatson.flutterisolate";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\just_audio\generated\source\buildConfig\debug\com\ryanheise\just_audio\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.ryanheise.just_audio";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\on_audio_query\generated\source\buildConfig\debug\com\lucasjosino\on_audio_query\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.lucasjosino.on_audio_query";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\path_provider\generated\source\buildConfig\debug\io\flutter\plugins\pathprovider\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "io.flutter.plugins.pathprovider";$/;"	f	class:BuildConfig
+LIBRARY_PACKAGE_NAME	.\build\sqflite\generated\source\buildConfig\debug\com\tekartik\sqflite\BuildConfig.java	/^  public static final String LIBRARY_PACKAGE_NAME = "com.tekartik.sqflite";$/;"	f	class:BuildConfig
+VERSION_CODE	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^  public static final int VERSION_CODE = 1;$/;"	f	class:BuildConfig
+VERSION_NAME	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^  public static final String VERSION_NAME = "1.0.0";$/;"	f	class:BuildConfig
+_SKIP	.\android\gradlew.bat	/^set _SKIP=2$/;"	v
+com.example.musicplayer	.\build\app\generated\source\buildConfig\debug\com\example\musicplayer\BuildConfig.java	/^package com.example.musicplayer;$/;"	p
+com.lucasjosino.on_audio_query	.\build\on_audio_query\generated\source\buildConfig\debug\com\lucasjosino\on_audio_query\BuildConfig.java	/^package com.lucasjosino.on_audio_query;$/;"	p
+com.rmawatson.flutterisolate	.\build\flutter_isolate\generated\source\buildConfig\debug\com\rmawatson\flutterisolate\BuildConfig.java	/^package com.rmawatson.flutterisolate;$/;"	p
+com.ryanheise.audio_session	.\build\audio_session\generated\source\buildConfig\debug\com\ryanheise\audio_session\BuildConfig.java	/^package com.ryanheise.audio_session;$/;"	p
+com.ryanheise.audioservice	.\build\audio_service\generated\source\buildConfig\debug\com\ryanheise\audioservice\BuildConfig.java	/^package com.ryanheise.audioservice;$/;"	p
+com.ryanheise.just_audio	.\build\just_audio\generated\source\buildConfig\debug\com\ryanheise\just_audio\BuildConfig.java	/^package com.ryanheise.just_audio;$/;"	p
+com.tekartik.sqflite	.\build\sqflite\generated\source\buildConfig\debug\com\tekartik\sqflite\BuildConfig.java	/^package com.tekartik.sqflite;$/;"	p
+end	.\android\gradlew.bat	/^:end$/;"	l
+execute	.\android\gradlew.bat	/^:execute$/;"	l
+fail	.\android\gradlew.bat	/^:fail$/;"	l
+findJavaFromJavaHome	.\android\gradlew.bat	/^:findJavaFromJavaHome$/;"	l
+init	.\android\gradlew.bat	/^:init$/;"	l
+io.flutter.plugins	.\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java	/^package io.flutter.plugins;$/;"	p
+io.flutter.plugins.pathprovider	.\build\path_provider\generated\source\buildConfig\debug\io\flutter\plugins\pathprovider\BuildConfig.java	/^package io.flutter.plugins.pathprovider;$/;"	p
+mainEnd	.\android\gradlew.bat	/^:mainEnd$/;"	l
+omega	.\android\gradlew.bat	/^:omega$/;"	l
+registerWith	.\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java	/^  public static void registerWith(@NonNull FlutterEngine flutterEngine) {$/;"	m	class:GeneratedPluginRegistrant
+win9xME_args	.\android\gradlew.bat	/^:win9xME_args$/;"	l
+win9xME_args_slurp	.\android\gradlew.bat	/^:win9xME_args_slurp$/;"	l

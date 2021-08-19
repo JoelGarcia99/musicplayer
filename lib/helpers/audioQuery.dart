@@ -7,8 +7,22 @@ class AudioCustomQuery {
 
   static List<SongModel> queryedAudios = [];
   static List<ArtistModel> queryedArtist = [];
+  static List<AlbumModel> queryedAlbums = [];
   static Map<String, int> musicDataindex  = new Map<String, int>();
   static Map<int, SongModel> musicDataIndexReverse = new Map<int, SongModel>();
+
+  Future<List<AlbumModel>> queryAlbums({bool shouldRefresh = false, String? singer}) async {
+
+    if(shouldRefresh || queryedAlbums.isEmpty) {
+      queryedAlbums = await OnAudioQuery().queryAlbums();
+    }
+
+    if(singer != null) {
+      return queryedAlbums.where((element) => element.artist == singer).toList();
+    }
+
+    return queryedAlbums;
+  }
 
   Future<List<ArtistModel>> queryArtists([withLoader = false, cache=true]) async {
     

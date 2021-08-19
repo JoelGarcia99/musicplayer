@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
+import 'package:musicplayer/player/controller.player.dart';
 import 'package:musicplayer/ui/theme.dart';
-
-import '../controller.player.dart';
 
 class ProgressBar extends StatelessWidget {
 

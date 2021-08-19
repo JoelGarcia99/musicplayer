@@ -1,34 +1,42 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:musicplayer/components/component.player.dart';
 import 'package:musicplayer/ui/theme.dart';
-
-import 'components/component.player.dart';
 
 class MainPlayerScreen extends StatelessWidget {
 
   late final AppThemeData theme;
-  late final Size screenSize;
-  late final BuildContext context;
+  static Size? screenSize;
+  static BuildContext? context;
 
-  MainPlayerScreen() {
+  static MainPlayerScreen? _instance;
+
+  factory MainPlayerScreen() {
+    if(_instance == null) {
+      _instance = new MainPlayerScreen._();
+    }
+
+    return _instance!;
+  }
+
+  MainPlayerScreen._() {
     this.theme = AppThemeData();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    this.context = context;
-    this.screenSize = MediaQuery.of(context).size;
-
+    MainPlayerScreen.context = context;
+    MainPlayerScreen.screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
         children: [
-          AppThemeData().getBackgroundImage(screenSize),
-          AppThemeData().getBackgroundColor(screenSize),
+          AppThemeData().getBackgroundImage(screenSize!),
+          AppThemeData().getBackgroundColor(screenSize!),
           Container(
-            height: screenSize.height,
+            height: screenSize!.height,
             child: _getContent()
           )
         ],
@@ -49,8 +57,8 @@ class MainPlayerScreen extends StatelessWidget {
             ),
             Expanded(child: Container()),
             Container(
-              height: screenSize.height*0.6,
-              width: screenSize.width,
+              height: screenSize!.height*0.6,
+              width: screenSize!.width,
               child: CustomPlayer()
             ),
             Expanded(child: Container()),
@@ -71,7 +79,7 @@ class MainPlayerScreen extends StatelessWidget {
             color: AppThemeData().iconColor,
           ),
           onPressed: (){
-            Navigator.of(context).pop();
+            Navigator.of(context!).pop();
           },
         ),
         Text(
