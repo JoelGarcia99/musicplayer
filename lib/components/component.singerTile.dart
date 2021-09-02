@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -31,13 +30,10 @@ class SingerTile extends StatelessWidget {
       ),
  
       child: ListTile(
-        leading: QueryArtworkWidget(
-          artwork: singer.artwork,
-          deviceSDK: DeviceHelper().sdk,
-          id: singer.id,
-          type: ArtworkType.ALBUM,
-        ),
-        title: Text(singer.artistName),
+	leading: CircleAvatar(
+	    child: Text(singer.artistName.replaceAll(r'<', "").toUpperCase()[0]),
+	),
+	title: Text(singer.artistName),
 	subtitle: Text("${singer.numberOfAlbums} albums - ${singer.numberOfTracks} tracks"),
 	trailing: IconButton(
 	    icon: Icon(Icons.arrow_forward_ios),

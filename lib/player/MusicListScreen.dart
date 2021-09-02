@@ -4,6 +4,7 @@ import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/components/component.appBar.dart';
 import 'package:musicplayer/components/component.bottomSheet.dart';
 import 'package:musicplayer/components/component.musicTile.dart';
+import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
@@ -60,7 +61,7 @@ class MusicListWidget extends StatelessWidget {
           final List<SongModel> items = bloc!.state.songs;
 
           if(items.isEmpty) {
-            return Container(child: Text("There are not items"),);
+            return Container(child: Text(S.of(context).there_are_not_items),);
           }
     
           return Stack(
@@ -78,27 +79,20 @@ class MusicListWidget extends StatelessWidget {
   Widget _content(List<SongModel> items, MusicState musicState, BuildContext mainContext) {
     return Column(
       children: [
-	PlayerAppBar(title: "Music list", withHeaders: true, actions: [
-	  IconButton(
-	      icon: Icon(Icons.settings),
-	      onPressed: ()=>Navigator.of(mainContext).pushNamed(Routes.SETTINGS),
-	  )
-	]),
+        PlayerAppBar(title: S.of(mainContext).music_list, withHeaders: true, actions: [
+          IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: ()=>Navigator.of(mainContext).pushNamed(Routes.SETTINGS),
+          )
+        ]),
         Expanded(
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: items.length,
             itemBuilder: (context, index) {
-
-              final playerController = new PlayerController();
-              
-              final isCurrent = (musicState as MusicWithSelection).current.id == items[index].id;
-              final isPlaying = isCurrent && playerController.player.playing;
               
               return MusicTile(
-                isCurrent: isCurrent,
-                item: items[index],
-                isPlaying: isPlaying
+                item: items[index]
               );
             }
           ),

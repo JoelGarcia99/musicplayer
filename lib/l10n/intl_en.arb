@@ -1,0 +1,12 @@
+{
+    "@@locale": "en",
+    "music_player": "Music Player",
+    "next_in_playlist": "Next in playlist",
+    "music_list": "Music list",
+    "all": "all",
+    "singers": "Singers",
+    "albums": "Albums",
+    "playlists": "Playlists",
+    "there_are_not_items": "There are not items",
+    "tracks": "tracks"
+}

@@ -6,7 +6,7 @@ import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/components/component.appBar.dart';
 import 'package:musicplayer/components/component.bottomSheet.dart';
 import 'package:musicplayer/components/component.singerTile.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -14,6 +14,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class SingersScreen extends StatelessWidget {
   static Size? screenSize;
   static MusicBloc? bloc;
+  static BuildContext? context;
 
   static SingersScreen? _instance;
 
@@ -29,6 +30,8 @@ class SingersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SingersScreen.context = context;
 
     if(screenSize == null) screenSize = MediaQuery.of(context).size;
     if(bloc == null) bloc = context.read<MusicBloc>();
@@ -67,7 +70,7 @@ class SingersScreen extends StatelessWidget {
     return Column(
       children: [
         PlayerAppBar(
-          title: "Singers list", 
+          title: S.of(SingersScreen.context!).singers,
           withHeaders: true,
           active: AppBarMenuOptions.Singers,
         ),

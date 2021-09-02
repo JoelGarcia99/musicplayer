@@ -1,9 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:musicplayer/components/component.musicTile.dart';
 import 'package:musicplayer/components/component.player.dart';
+import 'package:musicplayer/generated/l10n.dart';
+import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/ui/theme.dart';
 
+/// This is the class where the main process is showed.
+/// Here you will visualize the artwork, progress bar and
+/// and control buttons.
 class MainPlayerScreen extends StatelessWidget {
 
   late final AppThemeData theme;
@@ -30,18 +36,20 @@ class MainPlayerScreen extends StatelessWidget {
     MainPlayerScreen.context = context;
     MainPlayerScreen.screenSize = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          AppThemeData().getBackgroundImage(screenSize!),
-          AppThemeData().getBackgroundColor(screenSize!),
-          Container(
-            height: screenSize!.height,
-            child: _getContent()
-          )
-        ],
-      )
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        AppThemeData().getBackgroundImage(screenSize!),
+        AppThemeData().getBackgroundColor(screenSize!),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: _getContent()
+        ),
+        getDragableSheet()
+      ],
     );
+    
+    
   }
 
   Widget _getContent() {
@@ -55,11 +63,14 @@ class MainPlayerScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
               child: _buildAppBar(),
             ),
-            Expanded(child: Container()),
+            // Expanded(child: Container()),
             Container(
               height: screenSize!.height*0.6,
               width: screenSize!.width,
-              child: CustomPlayer()
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomPlayer(),
+              )
             ),
             Expanded(child: Container()),
           ],
@@ -91,6 +102,61 @@ class MainPlayerScreen extends StatelessWidget {
         ),
         Expanded(child: Container(),)
       ],
+    );
+  }
+
+  Widget getDragableSheet() {
+
+    const double BORDER_RADIUS = 20.0;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(BORDER_RADIUS),
+          topRight: Radius.circular(BORDER_RADIUS)
+        )
+      ),
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.2,
+        minChildSize: 0.2,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Center(
+                child: Container(
+                  margin: const EdgeInsetsDirectional.all(5.0),
+                  width: MainPlayerScreen.screenSize!.width * 0.15,
+                  height: 5.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20.0)
+                  ),
+                ),
+              ),
+              Text(S.of(context).next_in_playlist),
+              Expanded(
+                child: ReorderableListView(
+                  onReorder: (prevIdx, nexIdx) {
+
+                  },
+                  children: List<Widget>.from((AudioCustomQuery.queryedAudios).map((audio){
+                    return Container(
+                      key: new Key(audio.id.toString()),
+                      child: MusicTile(
+                        item: audio
+                      ),
+                    );
+                  })),
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 
