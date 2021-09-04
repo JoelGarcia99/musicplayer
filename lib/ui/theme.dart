@@ -40,7 +40,7 @@ class AppThemeData {
     );
   }
 
-
+  /////////////////////// Colors //////////////////////////
   final Color iconColor = new Color(0xffD9D9D9);
   final Color appbarColor = new Color(0xffD9D9D9);
   final Color cardColor = new Color(0xffD9D9D9);
@@ -48,5 +48,10 @@ class AppThemeData {
   final Color textColor = new Color(0xffD9D9D9);
   
   final Color textLightColor = Colors.black;
+
+  /////////////////// Borders ////////////////////////
+  final double bottomSheetTopBorders = 25.0;
+  final double initialBottomSheetSize = 0.2;
+  final double finalBottomSheetSize = 0.8;
 
 }

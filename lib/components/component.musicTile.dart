@@ -25,8 +25,13 @@ class MusicTile extends StatelessWidget {
 
     return BlocBuilder<MusicBloc, MusicState>(
       builder: (context, state) {
+        
+        bool isCurrent = false;
 
-        bool isCurrent = (state as MusicWithSelection).current.id == item.id;
+        if(state is MusicWithSelection) {
+          isCurrent = state.current.id == item.id;
+        }
+
         bool isPlaying = isCurrent && playerController.player.playing;
 
         return Container(
@@ -58,6 +63,7 @@ class MusicTile extends StatelessWidget {
               type: ArtworkType.AUDIO,
               artwork: item.artwork,
               deviceSDK: DeviceHelper().sdk,
+              nullArtworkWidget: Icon(Icons.music_note),
             ),
             trailing: IconButton(
               onPressed: () async {

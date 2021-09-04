@@ -1,4 +1,5 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerController {
 
@@ -48,6 +49,33 @@ class PlayerController {
       ),      
       initialIndex: 0,
       initialPosition: Duration(seconds: 0)
+    );
+  }
+
+  /// This will update the current plyalist based on the
+  /// [audios] you provide and will play the song at the
+  /// [initialIndex] position with the [position] duration.
+  /// If no [position] is provided then it will use the
+  /// duration of the current song that's playing.
+  Future<void> updatePlaylist(
+    List<SongModel> audios, 
+    int initialIndex,
+    {Duration? position}
+  ) async {
+
+    final initialPos = position ??_audioPlayer.position;
+
+    List<AudioSource> playlist = List<AudioSource>.from(audios.map((SongModel e){
+        return AudioSource.uri(Uri.parse(e.data));
+    }));
+
+    await _audioPlayer.setAudioSource(
+      ConcatenatingAudioSource(
+        useLazyPreparation: true,
+        children: playlist
+      ),
+      initialIndex: initialIndex,
+      initialPosition: initialPos
     );
   }
 

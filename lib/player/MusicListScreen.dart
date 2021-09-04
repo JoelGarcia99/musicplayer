@@ -39,8 +39,6 @@ class MusicListWidget extends StatelessWidget {
     if(screenSize == null) screenSize = MediaQuery.of(context).size;
     if(bloc == null) bloc = context.read<MusicBloc>();
 
-    bloc!.add(AddSongs(songs: AudioCustomQuery.queryedAudios));
-
     // updating application state when a song is changed
     PlayerController().onMusicSkip((int index){
       bloc!.add(AddCurrent(song: items[index]));
@@ -58,7 +56,7 @@ class MusicListWidget extends StatelessWidget {
       body: BlocBuilder<MusicBloc, MusicState>(
         builder: (context, musicState) {
 
-          final List<SongModel> items = bloc!.state.songs;
+          final List<SongModel> items = AudioCustomQuery.queryedAudios;
 
           if(items.isEmpty) {
             return Container(child: Text(S.of(context).there_are_not_items),);

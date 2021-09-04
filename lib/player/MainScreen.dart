@@ -1,11 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:musicplayer/components/component.musicTile.dart';
 import 'package:musicplayer/components/component.player.dart';
-import 'package:musicplayer/generated/l10n.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/ui/theme.dart';
+
+import 'DraggableBottomSheet.dart';
 
 /// This is the class where the main process is showed.
 /// Here you will visualize the artwork, progress bar and
@@ -45,7 +44,7 @@ class MainPlayerScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: _getContent()
         ),
-        getDragableSheet()
+        DraggableBottomSheet()
       ],
     );
     
@@ -102,61 +101,6 @@ class MainPlayerScreen extends StatelessWidget {
         ),
         Expanded(child: Container(),)
       ],
-    );
-  }
-
-  Widget getDragableSheet() {
-
-    const double BORDER_RADIUS = 20.0;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(BORDER_RADIUS),
-          topRight: Radius.circular(BORDER_RADIUS)
-        )
-      ),
-      child: DraggableScrollableSheet(
-        initialChildSize: 0.2,
-        minChildSize: 0.2,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (context, scrollController) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Center(
-                child: Container(
-                  margin: const EdgeInsetsDirectional.all(5.0),
-                  width: MainPlayerScreen.screenSize!.width * 0.15,
-                  height: 5.0,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(20.0)
-                  ),
-                ),
-              ),
-              Text(S.of(context).next_in_playlist),
-              Expanded(
-                child: ReorderableListView(
-                  onReorder: (prevIdx, nexIdx) {
-
-                  },
-                  children: List<Widget>.from((AudioCustomQuery.queryedAudios).map((audio){
-                    return Container(
-                      key: new Key(audio.id.toString()),
-                      child: MusicTile(
-                        item: audio
-                      ),
-                    );
-                  })),
-                ),
-              )
-            ],
-          );
-        },
-      ),
     );
   }
 

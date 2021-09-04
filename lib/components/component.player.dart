@@ -45,14 +45,14 @@ class CustomPlayer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        IconButton(
-          icon: Icon(
-            Icons.favorite_outline,
-            color: isCurrent?AppThemeData().iconColor:Colors.grey,
-            size: 20.0,
-          ),
-          onPressed: (){}
-        ),
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.favorite_outline,
+        //     color: isCurrent?AppThemeData().iconColor:Colors.grey,
+        //     size: 20.0,
+        //   ),
+        //   onPressed: (){}
+        // ),
         IconButton(
           icon: Icon(
             Icons.skip_previous,
@@ -94,14 +94,14 @@ class CustomPlayer extends StatelessWidget {
             await controller.player.seekToNext();
           },
         ),
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: isCurrent?AppThemeData().iconColor:Colors.grey,
-            size: 20.0,
-          ),
-          onPressed: (){}
-        ),
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.more_vert,
+        //     color: isCurrent?AppThemeData().iconColor:Colors.grey,
+        //     size: 20.0,
+        //   ),
+        //   onPressed: (){}
+        // ),
       ],
     );
   }

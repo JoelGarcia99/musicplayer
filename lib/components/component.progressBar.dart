@@ -37,13 +37,16 @@ class ProgressBar extends StatelessWidget {
         final minutesSong = controller.player.duration?.inMinutes ?? 0;
         final secondsSong = (controller.player.duration?.inSeconds ?? 0) % 60;
 
+        final position = (snapshot.data!.inMilliseconds*1.00);
+        final maxValue = (controller.player.duration?.inMilliseconds ?? 0) * 1.0;
+
         return Container(
           child: Column(
             children: [
               Slider(
                 min: 0.0,
-                max: (controller.player.duration?.inMilliseconds ?? 0) * 1.0,
-                value: snapshot.data!.inMilliseconds*1.00,
+                max: maxValue,
+                value: (position >= 0.0 && position <= maxValue)? position:0.0,
                 onChanged: (position){
                   controller.player.seek(Duration(milliseconds: position~/1));
                 },

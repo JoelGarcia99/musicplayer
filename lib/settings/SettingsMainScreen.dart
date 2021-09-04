@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/settings/data.settings.dart';
 import 'package:musicplayer/ui/theme.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class SettingsMainScreen extends StatelessWidget {
   const SettingsMainScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<MusicBloc>();
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -44,10 +39,8 @@ class SettingsMainScreen extends StatelessWidget {
                   trailing: Icon(Icons.arrow_forward_ios),
                   onTap: ()async{
                     SmartDialog.showLoading(msg: "Loading audios");
-                    final List<SongModel> data = await AudioCustomQuery().quearyAudios();
+                    await AudioCustomQuery().quearyAudios();
                     SmartDialog.dismiss();
-                    
-                    bloc.add(AddSongs(songs: data));
                   },
                 )
               ]

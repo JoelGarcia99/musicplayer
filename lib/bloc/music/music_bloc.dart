@@ -14,13 +14,9 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
   Stream<MusicState> mapEventToState(MusicEvent event) async* {
     
     switch(event.runtimeType) {
-      case AddSongs:
-        yield (event as AddSongs).songsState;
-        break;
       case AddCurrent:
         yield MusicWithSelection(
-          currentSong: (event as AddCurrent).song, 
-          songs: state.songs,
+          currentSong: (event as AddCurrent).song,
           isRunning: true
         );
         break;
