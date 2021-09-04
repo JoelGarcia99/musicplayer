@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/intl.dart';
 import 'package:musicplayer/bloc/music/music_bloc.dart';
+import 'package:musicplayer/data/user_preferences.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/router/routes.dart';
@@ -14,11 +15,13 @@ import 'generated/l10n.dart';
 void main()async{
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  Intl.defaultLocale = 'en';
   
+  await UserPreferences().initPreferences();
   await DeviceHelper().init();
   await AudioCustomQuery().quearyAudios(false);
+
+  Intl.defaultLocale = UserPreferences().language;
+  S.load(Locale(Intl.defaultLocale!));
 
   runApp(MyApp());
 }

@@ -50,6 +50,116 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Account`
+  String get account {
+    return Intl.message(
+      'Account',
+      name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Albums`
+  String get albums {
+    return Intl.message(
+      'Albums',
+      name: 'albums',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get all {
+    return Intl.message(
+      'All',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your language`
+  String get choose_language {
+    return Intl.message(
+      'Choose your language',
+      name: 'choose_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your language has been changed. Restart the app to apply the changes`
+  String get language_changed {
+    return Intl.message(
+      'Your language has been changed. Restart the app to apply the changes',
+      name: 'language_changed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching for musics`
+  String get searching_music {
+    return Intl.message(
+      'Searching for musics',
+      name: 'searching_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage your account`
+  String get manage_account {
+    return Intl.message(
+      'Manage your account',
+      name: 'manage_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menu`
+  String get menu {
+    return Intl.message(
+      'Menu',
+      name: 'menu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Music list`
+  String get music_list {
+    return Intl.message(
+      'Music list',
+      name: 'music_list',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Music Player`
   String get music_player {
     return Intl.message(
@@ -70,21 +180,41 @@ class S {
     );
   }
 
-  /// `Music list`
-  String get music_list {
+  /// `Playlists`
+  String get playlists {
     return Intl.message(
-      'Music list',
-      name: 'music_list',
+      'Playlists',
+      name: 'playlists',
       desc: '',
       args: [],
     );
   }
 
-  /// `all`
-  String get all {
+  /// `Scan for local music`
+  String get scan_local_music {
     return Intl.message(
-      'all',
-      name: 'all',
+      'Scan for local music',
+      name: 'scan_local_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan for music files in your local storage`
+  String get scan_music_in_storage {
+    return Intl.message(
+      'Scan for music files in your local storage',
+      name: 'scan_music_in_storage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
       desc: '',
       args: [],
     );
@@ -100,41 +230,31 @@ class S {
     );
   }
 
-  /// `Albums`
-  String get albums {
+  /// `There are no items`
+  String get there_are_no_items {
     return Intl.message(
-      'Albums',
-      name: 'albums',
+      'There are no items',
+      name: 'there_are_no_items',
       desc: '',
       args: [],
     );
   }
 
-  /// `Playlists`
-  String get playlists {
-    return Intl.message(
-      'Playlists',
-      name: 'playlists',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There are not items`
-  String get there_are_not_items {
-    return Intl.message(
-      'There are not items',
-      name: 'there_are_not_items',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `tracks`
+  /// `Tracks`
   String get tracks {
     return Intl.message(
-      'tracks',
+      'Tracks',
       name: 'tracks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your current language is`
+  String get your_current_lan_is {
+    return Intl.message(
+      'Your current language is',
+      name: 'your_current_lan_is',
       desc: '',
       args: [],
     );
@@ -147,6 +267,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es'),
     ];
   }
 

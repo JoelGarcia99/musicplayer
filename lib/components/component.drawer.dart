@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
@@ -29,13 +30,19 @@ class PlayerDrawer extends StatelessWidget {
                 color: Colors.black,
                 child: ListTile(
                   leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
-                  title: Text("Menu", style: TextStyle(color: AppThemeData().iconColor),),
+                  title: Text(
+                    S.of(context).menu, 
+                    style: TextStyle(color: AppThemeData().iconColor),
+                  ),
                   onTap: ()=>SmartDialog.dismiss(),
                 ),
               ),
               ListTile(
                 leading: Icon(Icons.graphic_eq, color: AppThemeData().iconColor),
-                title: Text("Music list", style: TextStyle(color: AppThemeData().iconColor),),
+                title: Text(
+                  S.of(context).music_list, 
+                  style: TextStyle(color: AppThemeData().iconColor),
+                ),
                 onTap: () {
                   SmartDialog.dismiss();
                   Navigator.of(parentContext).pushReplacementNamed(Routes.MUSIC_LIST);
@@ -47,7 +54,7 @@ class PlayerDrawer extends StatelessWidget {
                   color: AppThemeData().iconColor,
                 ),
                 title: Text(
-                  "YouTube music downloader", 
+                  "YouTube downloader",
                   style: TextStyle(color: AppThemeData().iconColor),
                 ),
                 onTap: () {

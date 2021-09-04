@@ -69,6 +69,11 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
                   child: Container(),
                 ),
                 if (widget.actions != null) ...widget.actions!
+                else
+                  IconButton(
+                      icon: Icon(Icons.settings, color: AppThemeData().iconColor),
+                      onPressed: ()=>Navigator.of(context).pushNamed(Routes.SETTINGS),
+                  )
               ],
             ),
           ),

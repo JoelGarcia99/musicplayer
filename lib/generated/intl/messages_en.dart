@@ -21,16 +21,35 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "account": MessageLookupByLibrary.simpleMessage("Account"),
         "albums": MessageLookupByLibrary.simpleMessage("Albums"),
-        "all": MessageLookupByLibrary.simpleMessage("all"),
+        "all": MessageLookupByLibrary.simpleMessage("All"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "choose_language":
+            MessageLookupByLibrary.simpleMessage("Choose your language"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_changed": MessageLookupByLibrary.simpleMessage(
+            "Your language has been changed. Restart the app to apply the changes"),
+        "manage_account":
+            MessageLookupByLibrary.simpleMessage("Manage your account"),
+        "menu": MessageLookupByLibrary.simpleMessage("Menu"),
         "music_list": MessageLookupByLibrary.simpleMessage("Music list"),
         "music_player": MessageLookupByLibrary.simpleMessage("Music Player"),
         "next_in_playlist":
             MessageLookupByLibrary.simpleMessage("Next in playlist"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
+        "scan_local_music":
+            MessageLookupByLibrary.simpleMessage("Scan for local music"),
+        "scan_music_in_storage": MessageLookupByLibrary.simpleMessage(
+            "Scan for music files in your local storage"),
+        "searching_music":
+            MessageLookupByLibrary.simpleMessage("Searching for musics"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "singers": MessageLookupByLibrary.simpleMessage("Singers"),
-        "there_are_not_items":
-            MessageLookupByLibrary.simpleMessage("There are not items"),
-        "tracks": MessageLookupByLibrary.simpleMessage("tracks")
+        "there_are_no_items":
+            MessageLookupByLibrary.simpleMessage("There are no items"),
+        "tracks": MessageLookupByLibrary.simpleMessage("Tracks"),
+        "your_current_lan_is":
+            MessageLookupByLibrary.simpleMessage("Your current language is")
       };
 }

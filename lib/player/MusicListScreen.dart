@@ -6,7 +6,6 @@ import 'package:musicplayer/components/component.bottomSheet.dart';
 import 'package:musicplayer/components/component.musicTile.dart';
 import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -59,7 +58,7 @@ class MusicListWidget extends StatelessWidget {
           final List<SongModel> items = AudioCustomQuery.queryedAudios;
 
           if(items.isEmpty) {
-            return Container(child: Text(S.of(context).there_are_not_items),);
+            return Container(child: Text(S.of(context).there_are_no_items),);
           }
     
           return Stack(
@@ -77,12 +76,7 @@ class MusicListWidget extends StatelessWidget {
   Widget _content(List<SongModel> items, MusicState musicState, BuildContext mainContext) {
     return Column(
       children: [
-        PlayerAppBar(title: S.of(mainContext).music_list, withHeaders: true, actions: [
-          IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: ()=>Navigator.of(mainContext).pushNamed(Routes.SETTINGS),
-          )
-        ]),
+        PlayerAppBar(title: S.of(mainContext).music_list, withHeaders: true),
         Expanded(
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
