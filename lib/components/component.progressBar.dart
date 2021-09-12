@@ -21,11 +21,6 @@ class ProgressBar extends StatelessWidget {
       initialData: Duration(seconds: 0),
       builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
 
-        // if(snapshot.data!.inMilliseconds*1.00 >= (controller.player.duration?.inMilliseconds ?? 0) * 1.0) {
-        //   controller.player.stop();
-        //   bloc.add(PausePlayCurrent(isRunning: false));
-        // }
-
         final minutesProgress = snapshot.data!.inMinutes;
         final secondsProgress = snapshot.data!.inSeconds % 60;
 

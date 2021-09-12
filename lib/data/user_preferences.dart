@@ -36,6 +36,7 @@ class UserPreferences {
   /// 'en' for English language
   String get language => _userPrefs?.getString("lan") ?? "en";
 
+
   set language(String lan) {
     _userPrefs?.setString("lan", lan);
     lanSink(lan);

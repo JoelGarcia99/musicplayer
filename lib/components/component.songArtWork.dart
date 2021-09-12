@@ -19,7 +19,7 @@ class PlayerArtWork extends StatelessWidget {
     /// the entire device's screen size. [portFraction] in the other
     /// hand is the size of the image
     final containerSize = MediaQuery.of(context).size;
-    final portFraction = this.imageSize ?? containerSize.width * 0.95;
+    final portFraction = this.imageSize ?? containerSize.width;
 
     return StreamBuilder<int?>(
       stream: PlayerController().player.currentIndexStream,
@@ -39,8 +39,15 @@ class PlayerArtWork extends StatelessWidget {
               id:  int.parse(current?.id ?? "0"),
               type: ArtworkType.AUDIO,
               artwork: current?.artUri?.path,
+              artworkBorder: BorderRadius.only(
+                bottomLeft: Radius.circular(50.0),
+                bottomRight: Radius.circular(50.0),
+              ),
               nullArtworkWidget: ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(50.0),
+                  bottomRight: Radius.circular(50.0),
+                ),
                 child: Container(
                   color: AppThemeData().cardColor,
                   height: portFraction,

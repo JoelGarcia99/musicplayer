@@ -21,7 +21,22 @@ class CustomPlayer extends StatelessWidget {
     return Column(
       children: [
         PlayerArtWork(),
-        _actionButtons(),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+          decoration: BoxDecoration(
+            color: AppThemeData().backgroundColor,
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black87,
+                spreadRadius: 2.0,
+                blurRadius: 2.0,
+                offset: Offset(0.0, 2.0)
+              )
+            ]
+          ),
+          child: _actionButtons()
+        ),
         ProgressBar()
       ],
     );

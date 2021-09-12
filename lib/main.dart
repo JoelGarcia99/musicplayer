@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl_browser.dart';
 import 'package:musicplayer/data/user_preferences.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
@@ -30,8 +30,7 @@ void main()async{
   /// as notification banner and lock screen controlls
   await PlayerController().initService();
 
-  Intl.defaultLocale = UserPreferences().language;
-  S.load(Locale(Intl.defaultLocale!));
+  UserPreferences().language = await findSystemLocale();
 
   /// blocking landscape rotation
   SystemChrome.setPreferredOrientations([
@@ -51,22 +50,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'Material App',
-      initialRoute: Routes.MUSIC_LIST,
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      builder: (context, child){
-        return FlutterSmartDialog(
-          child: child!
+    return StreamBuilder<String>(
+      stream: UserPreferences().lanStream,
+      initialData: UserPreferences().language,
+      builder: (context, snapshot) {
+    
+        return MaterialApp(
+          title: 'Devall Music Player',
+          initialRoute: Routes.MUSIC_LIST,
+          locale: new Locale(UserPreferences().language),
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          builder: (context, child){
+            return FlutterSmartDialog(
+              child: child!
+            );
+          },
+          routes: buildRoutes(),
         );
-      },
-      routes: buildRoutes(),
+      }
     );
   }
 }

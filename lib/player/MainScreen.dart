@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:musicplayer/components/component.player.dart';
+import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 import 'DraggableBottomSheet.dart';
@@ -13,7 +14,6 @@ class MainPlayerScreen extends StatelessWidget {
 
   late final AppThemeData theme;
   static Size? screenSize;
-  static BuildContext? context;
 
   static MainPlayerScreen? _instance;
 
@@ -32,7 +32,6 @@ class MainPlayerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    MainPlayerScreen.context = context;
     MainPlayerScreen.screenSize = MediaQuery.of(context).size;
 
     return Stack(
@@ -42,7 +41,7 @@ class MainPlayerScreen extends StatelessWidget {
         AppThemeData().getBackgroundColor(screenSize!),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: _getContent()
+          body: _getContent(context)
         ),
         DraggableBottomSheet()
       ],
@@ -51,34 +50,60 @@ class MainPlayerScreen extends StatelessWidget {
     
   }
 
-  Widget _getContent() {
+  Widget _getContent(BuildContext context) {
     return SafeArea(
       // child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
+        child: Stack(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-              child: _buildAppBar(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  width: screenSize!.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: CustomPlayer(),
+                  )
+                ),
+                Expanded(child: Container()),
+              ],
             ),
-            // Expanded(child: Container()),
-            Container(
-              // height: screenSize!.height*0.6,
-              width: screenSize!.width,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomPlayer(),
-              )
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black38,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black,
+                        Colors.black.withOpacity(0.9),
+                        Colors.black.withOpacity(0.5),
+                        Colors.black.withOpacity(0.1),
+                        Colors.black.withOpacity(0.01),
+                      ]
+                    )
+                  ),
+                  padding: EdgeInsets.only(
+                    top: 5.0,
+                    bottom: screenSize!.height * 0.1, 
+                    left: 10.0,
+                    right: 10.0
+                  ),
+                  child: _buildAppBar(context),
+                ),
+              ],
             ),
-            Expanded(child: Container()),
           ],
         ),
       // ),
     );
   }
 
-  Widget _buildAppBar() {
+  Widget _buildAppBar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
@@ -89,11 +114,11 @@ class MainPlayerScreen extends StatelessWidget {
             color: AppThemeData().iconColor,
           ),
           onPressed: (){
-            Navigator.of(context!).pop();
+            Navigator.of(context).pop();
           },
         ),
         Text(
-          "Music Player",
+          S.of(context).music_player,
           style: TextStyle(
             color: AppThemeData().iconColor,
             fontSize: 18

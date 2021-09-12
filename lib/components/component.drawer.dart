@@ -36,7 +36,7 @@ class PlayerDrawer extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(Icons.menu, color: AppThemeData().iconColor,),
                   title: Text(
-                    S.of(context).menu, 
+                    S.of(context).menu,
                     style: TextStyle(color: AppThemeData().iconColor),
                   ),
                   onTap: ()=>SmartDialog.dismiss(),
