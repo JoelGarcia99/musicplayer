@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musicplayer/bloc/music/music_bloc.dart';
-import 'package:musicplayer/player/controller.player.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 class ProgressBar extends StatelessWidget {
 
   late final Stream<Duration> progressStream;
   late final PlayerController controller;
-  late final MusicBloc bloc;
 
   ProgressBar() {
     controller = new PlayerController();
@@ -18,8 +15,6 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    bloc = context.read<MusicBloc>();
 
     return StreamBuilder(
       stream: progressStream,

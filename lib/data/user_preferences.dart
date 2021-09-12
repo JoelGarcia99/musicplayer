@@ -29,7 +29,6 @@ class UserPreferences {
 
   Future<void> initPreferences() async {
     _userPrefs = await SharedPreferences.getInstance();
-
     lanSink(language);
   }
 

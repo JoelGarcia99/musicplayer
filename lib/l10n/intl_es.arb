@@ -5,6 +5,8 @@
     "all": "Todos",
     "cancel": "Cancelar",
     "choose_language": "Elige tu idioma",
+    "delete": "Eliminar",
+    "duration": "Duración",
     "language": "Idioma",
     "language_changed": "El idioma ha sido cambiado. Para ver los cambios reinicie la app",
     "searching_music": "Buscando tus músicas",
@@ -18,6 +20,7 @@
     "scan_music_in_storage": "Buscar música en almacenamiento local",
     "settings": "Configuraciones",
     "singers": "Cantantes",
+    "size": "Tamaño",
     "there_are_no_items": "No hay elementos",
     "tracks": "Canciones",
     "your_current_lan_is": "Tu idioma actual es"

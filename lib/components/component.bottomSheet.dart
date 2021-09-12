@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/player/MainScreen.dart';
-import 'package:musicplayer/player/controller.player.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:route_transitions/route_transitions.dart';
 
+/// This is the player that is showed at the bottom of
+/// the screen. Do not cbe confused with the bottom
+/// sheet that shows the playlist items, they are pretty 
+/// different
 class PlayerBottomSheet extends StatelessWidget {
   final double? height;
-  static MusicBloc? bloc;
   late final PlayerController _controller;
 
   static PlayerBottomSheet? _instance;
@@ -29,16 +31,16 @@ class PlayerBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(bloc == null) bloc = context.read<MusicBloc>();
 
     final screenWidth = MediaQuery.of(context).size.width;
     final height = this.height ?? MediaQuery.of(context).size.height * 0.1;
 
-    return BlocBuilder<MusicBloc, MusicState>(
-      builder: (context, state) {
+    return StreamBuilder<int?>(
+      stream: PlayerController().player.currentIndexStream,
+      initialData: 0,
+      builder: (context, snapshot) {
 
-        if(!(state is MusicWithSelection)) return Container();
-        final current = state.current;
+        final current = AudioCustomQuery.queryedAudios[snapshot.data ?? 0];
 
         return GestureDetector(
           onVerticalDragStart: (_)=>slideUpWidget(
@@ -86,7 +88,7 @@ class PlayerBottomSheet extends StatelessWidget {
                           child: _getSongInfo(current)
                         ),
                       ),
-                      _actionButtons(state)
+                      _actionButtons()
                     ],
                   ),
                 ),
@@ -127,61 +129,60 @@ class PlayerBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _actionButtons(MusicState state) {
+  Widget _actionButtons() {
 
-    bool isCurrent = false;
-    final bool isPlaying = (state is MusicWithSelection)? state.isRunning:false;
+    return StreamBuilder<bool>(
+      stream: PlayerController().player.playingStream,
+      initialData: false,
+      builder: (context, snapshot) {
 
-    if(state is MusicWithSelection) {
-      isCurrent = true;
-    }
+        final bool isPlaying = snapshot.data!;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton(
-          icon: Icon(
-            Icons.skip_previous,
-            color: isCurrent?AppThemeData().iconColor:Colors.grey,
-            size: 25.0,
-          ),
-          onPressed: !isCurrent?null:()async{
-            await _controller.player.seekToPrevious();
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            isPlaying? Icons.pause:Icons.play_arrow, 
-            color: isCurrent?AppThemeData().iconColor:Colors.grey,
-            size: 25.0,
-          ),
-          onPressed: !isCurrent?null:()async {
-
-            // If it's playing, then I wanna pause it
-            if(isPlaying) {
-              await _controller.pause();
-            }
-            else {
-              _controller.play(isNewSong: false);
-            }
-
-            // updating bloc state in other interfaces
-            bloc!.add(PausePlayCurrent(isRunning: !isPlaying));
-
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.skip_next,
-            color: isCurrent?AppThemeData().iconColor:Colors.grey,
-            size: 25.0,
-          ),
-          onPressed: !isCurrent?null:()async{
-            await _controller.player.seekToNext();
-          },
-        ),
-      ],
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.skip_previous,
+                color: AppThemeData().iconColor,
+                size: 25.0,
+              ),
+              onPressed: ()async{
+                await _controller.player.seekToPrevious();
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                isPlaying? Icons.pause:Icons.play_arrow, 
+                color: AppThemeData().iconColor,
+                size: 25.0,
+              ),
+              onPressed: ()async {
+    
+                // If it's playing, then I wanna pause it
+                if(isPlaying) {
+                  await _controller.pause();
+                }
+                else {
+                  _controller.play(isNewSong: false);
+                }
+    
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.skip_next,
+                color: AppThemeData().iconColor,
+                size: 25.0,
+              ),
+              onPressed: ()async{
+                await _controller.player.seekToNext();
+              },
+            ),
+          ],
+        );
+      }
     );
   }
 }

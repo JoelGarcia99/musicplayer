@@ -64,7 +64,7 @@ class MainPlayerScreen extends StatelessWidget {
             ),
             // Expanded(child: Container()),
             Container(
-              height: screenSize!.height*0.6,
+              // height: screenSize!.height*0.6,
               width: screenSize!.width,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

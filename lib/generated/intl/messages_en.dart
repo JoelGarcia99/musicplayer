@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_language":
             MessageLookupByLibrary.simpleMessage("Choose your language"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "language_changed": MessageLookupByLibrary.simpleMessage(
             "Your language has been changed. Restart the app to apply the changes"),
@@ -46,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Searching for musics"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "singers": MessageLookupByLibrary.simpleMessage("Singers"),
+        "size": MessageLookupByLibrary.simpleMessage("Size"),
         "there_are_no_items":
             MessageLookupByLibrary.simpleMessage("There are no items"),
         "tracks": MessageLookupByLibrary.simpleMessage("Tracks"),

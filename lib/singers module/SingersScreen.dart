@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
-import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/components/component.appBar.dart';
 import 'package:musicplayer/components/component.bottomSheet.dart';
 import 'package:musicplayer/components/component.singerTile.dart';
@@ -13,7 +11,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class SingersScreen extends StatelessWidget {
   static Size? screenSize;
-  static MusicBloc? bloc;
   static BuildContext? context;
 
   static SingersScreen? _instance;
@@ -34,7 +31,6 @@ class SingersScreen extends StatelessWidget {
     SingersScreen.context = context;
 
     if(screenSize == null) screenSize = MediaQuery.of(context).size;
-    if(bloc == null) bloc = context.read<MusicBloc>();
 
     // bloc.add(AddSongs(songs: AudioCustomQuery.queryedAudios));
 

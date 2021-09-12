@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:musicplayer/generated/l10n.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 class PlayerDrawer extends StatelessWidget {
 
+
+  /// This [parentcontext] is just used to push
+  /// new routes since the drawer doesn't support
+  /// it by itself
   final BuildContext parentContext;
 
   PlayerDrawer({ required this.parentContext });
@@ -61,6 +66,19 @@ class PlayerDrawer extends StatelessWidget {
                   SmartDialog.dismiss();
                   Navigator.of(parentContext).pushReplacementNamed(Routes.YOUTUBE_DOWNLOADER);
                 },
+              ),
+              ListTile(
+                leading: FaIcon(
+                  FontAwesomeIcons.youtube,
+                  color: AppThemeData().iconColor,
+                ),
+                title: Text(
+                  "Background",
+                  style: TextStyle(color: AppThemeData().iconColor),
+                ),
+                onTap: () {
+                  PlayerController().handler.play();
+                }
               ),
             ],
           ),

@@ -100,6 +100,26 @@ class S {
     );
   }
 
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duration`
+  String get duration {
+    return Intl.message(
+      'Duration',
+      name: 'duration',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language`
   String get language {
     return Intl.message(
@@ -225,6 +245,16 @@ class S {
     return Intl.message(
       'Singers',
       name: 'singers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Size`
+  String get size {
+    return Intl.message(
+      'Size',
+      name: 'size',
       desc: '',
       args: [],
     );

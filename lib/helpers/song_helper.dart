@@ -21,8 +21,17 @@ class _SongHelper {
       response /= 1000000;
     }
 
-    return "$response $sizeUnit";
+    return "${response.toStringAsFixed(2)} $sizeUnit";
   }
+
+  String formatDuration(Duration duration) {
+    int min = duration.inMinutes;
+    int sec = duration.inSeconds - duration.inMinutes * 60;
+
+    return "${min<=9? "0":""}$min:${sec <= 9? "0":""}$sec";
+  }
+
 }
+
 
 const songHelper = const _SongHelper();

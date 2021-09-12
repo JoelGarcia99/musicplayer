@@ -1,47 +1,55 @@
 import 'package:animated_overflow/animated_overflow.dart';
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musicplayer/bloc/music/music_bloc.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerArtWork extends StatelessWidget {
   
   final double? imageSize;
-  late final MusicBloc bloc;
 
   PlayerArtWork({this.imageSize});
 
   @override
   Widget build(BuildContext context) {
 
-    this.bloc = context.read<MusicBloc>();
-
+    /// [containerSize] is the size of the player screen, I mean,
+    /// the entire device's screen size. [portFraction] in the other
+    /// hand is the size of the image
     final containerSize = MediaQuery.of(context).size;
-    final portFraction = this.imageSize ?? containerSize.width * 0.7;
+    final portFraction = this.imageSize ?? containerSize.width * 0.95;
 
-    final state = bloc.state;
+    return StreamBuilder<int?>(
+      stream: PlayerController().player.currentIndexStream,
+      initialData: 0,
+      builder: (context, snapshot) {
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if(state is MusicWithSelection)
-          ...[
+        final MediaItem? current = PlayerController().player.audioSource?.sequence[
+          snapshot.data!
+        ].tag as MediaItem;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             QueryArtworkWidget(
               artworkHeight: portFraction,
               artworkWidth: portFraction,
-              id: state.current.id,
+              id:  int.parse(current?.id ?? "0"),
               type: ArtworkType.AUDIO,
-              artwork: state.current.artwork,
+              artwork: current?.artUri?.path,
               nullArtworkWidget: ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
-                child: Image.asset(
-                  'assets/images/background.jpg',
-                  fit: BoxFit.cover,
-                  width: portFraction,
+                child: Container(
+                  color: AppThemeData().cardColor,
                   height: portFraction,
-                ),
+                  width: portFraction,
+                  child: Icon(
+                    Icons.music_note,
+                    size: portFraction * 0.5,
+                  ),
+                )
               ),
               deviceSDK: DeviceHelper().sdk,
             ),
@@ -54,7 +62,7 @@ class PlayerArtWork extends StatelessWidget {
                   maxWidth: containerSize.width,
                   animatedOverflowDirection: AnimatedOverflowDirection.HORIZONTAL,
                   child: Text(
-                    state.current.title,
+                    current?.title ?? "N/A",
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     style: TextStyle(                  
@@ -66,27 +74,8 @@ class PlayerArtWork extends StatelessWidget {
               ),
             ),
           ]
-        else
-          ...[
-            Hero(
-              tag: 'assets/images/background.jpg',
-              child: Image.asset(
-                'assets/images/background.jpg',
-                fit: BoxFit.fitHeight,
-                width: portFraction,
-                height: portFraction,
-              ),
-            ),
-            SizedBox(height: 10.0,),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(
-                "No audio selected",
-                style: TextStyle(fontSize: 20.0, color: AppThemeData().iconColor),
-              ),
-            ),
-          ]
-      ]
+        );
+      }
     );
   }
 }

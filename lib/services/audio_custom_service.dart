@@ -1,6 +1,12 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+part 'audio_background.dart';
+
+/// A singleton class to controll the entire audio session
+/// in the foreground and the background.
 class PlayerController {
 
   static PlayerController? _instance;
@@ -16,25 +22,43 @@ class PlayerController {
   PlayerController._() {
     _audioPlayer = AudioPlayer();
     _audioPlayer.setLoopMode(LoopMode.all);
+    _audioPlayer.setVolume(0.5);
+
+    AudioSession.instance.then((session)async{
+      await session.configure(AudioSessionConfiguration.music());
+    });
   }
 
   late AudioPlayer _audioPlayer;
+  late AudioHandler _audioHandler;
 
   Future<void> setFile(String file) async {
     await _audioPlayer.setFilePath(file);
+  }
+
+  Future<void> initService() async {
+    _audioHandler = await AudioService.init(
+      builder: () => AudioPlayerHandler(_audioPlayer),
+      config: AudioServiceConfig(
+        androidNotificationChannelId: 'com.mycompany.myapp.channel.audio',
+        androidNotificationChannelName: 'Music playback',
+      ),
+    );
   }
 
   /// [isNewSong] referencess whereas you're trying to play
   /// a paused song or if you wanna play a new one. [index]
   /// is the position of your song in the playlist
   Future<void> play({bool isNewSong=true, int index = 0}) async {
-    await _audioPlayer.stop();
+    // await _audioPlayer.stop();
     if(isNewSong) {await _audioPlayer.seek(Duration(seconds: 0), index: index);}
-    _audioPlayer.play();
+    // _audioPlayer.play();
+    _audioHandler.play();
   }
 
   Future<void> pause() async {
-    await _audioPlayer.pause();
+    // await _audioPlayer.pause();
+    await _audioHandler.pause();
   }
 
   /// [audios] will be the list of songs you wanna loop over.
@@ -45,9 +69,10 @@ class PlayerController {
     await _audioPlayer.setAudioSource(
       ConcatenatingAudioSource(
         useLazyPreparation: true,
-        children: audios
+        children: audios,
       ),      
       initialIndex: 0,
+      preload: true,
       initialPosition: Duration(seconds: 0)
     );
   }
@@ -94,6 +119,7 @@ class PlayerController {
 
 
   AudioPlayer get player => _audioPlayer;
+  AudioHandler get handler => _audioHandler;
   Stream<PlayerState> get stateStream => _audioPlayer.playerStateStream;
 
 }

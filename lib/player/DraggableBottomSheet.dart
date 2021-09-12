@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:musicplayer/components/component.musicTile.dart';
 import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/player/controller.player.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/ui/theme.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class DraggableBottomSheet extends StatefulWidget {
 
-  const DraggableBottomSheet({ Key? key }) : super(key: key);
+
+  late final List<SongModel> playlist;
+
+  DraggableBottomSheet({List<SongModel>? playlist}) {
+    this.playlist = playlist ?? AudioCustomQuery.queryedAudios;
+  }
 
   @override
   _DraggableBottomSheetState createState() => _DraggableBottomSheetState();
@@ -36,17 +42,11 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheet> {
       );
 
 
-    return GestureDetector(
-      onTap: () {
-        setState((){
-          isExpanded = !isExpanded;
-        });
-      },
-      child: AnimatedContainer(
+    return AnimatedContainer(
         duration: Duration(milliseconds: 500),
         height: height,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppThemeData().primaryDark.withGreen(20),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(AppThemeData().bottomSheetTopBorders),
             topRight: Radius.circular(AppThemeData().bottomSheetTopBorders),
@@ -55,54 +55,68 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Center(
-              child: Container(
-                margin: const EdgeInsetsDirectional.all(5.0),
-                width: screenSize.width * 0.15,
-                height: 5.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20.0)
+            ListTile(
+              onTap: ()=>setState((){
+                  isExpanded = !isExpanded;
+                }),
+              title: Container(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: const EdgeInsetsDirectional.all(5.0),
+                        width: screenSize.width * 0.15,
+                        height: 5.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20.0)
+                        ),
+                      ),
+                    ),
+                    
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        S.of(context).next_in_playlist,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppThemeData().textColor
+                        )
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Text(S.of(context).next_in_playlist),
-            Expanded(
-              child: ReorderableListView(
-                onReorder: (prevIdx, nextIdx) {
-                  setState(() {
-                    if (prevIdx < nextIdx) {
-                      nextIdx -= 1;
-                    }
-                    final item = AudioCustomQuery.queryedAudios.removeAt(prevIdx);
+            StreamBuilder<bool>(
+              stream: PlayerController().player.shuffleModeEnabledStream,
+              initialData: false,
+              builder: (context, snapshot) {
 
-                    // updating list of extracted audios
-                    AudioCustomQuery.queryedAudios.insert(nextIdx, item);
+                List<SongModel> list = widget.playlist;
 
-                    // updating data indices
-                    AudioCustomQuery().generateDataIndex();
+                if(snapshot.data!) {
+                  list = PlayerController().player.effectiveIndices!.map<SongModel>((int index) {
+                    return list[index];
+                  }).toList();
+                }
 
-                    // updating playlist. Remember that this is a service so
-                    // you need to update it as well as you did with [queryedAudios]
-                    PlayerController().updatePlaylist(
-                       AudioCustomQuery.queryedAudios,
-                       nextIdx,
-                    );
-                  }); 
-                },
-                children: List<Widget>.from((AudioCustomQuery.queryedAudios).map((audio){
-                  return Container(
-                    key: new Key(audio.id.toString()),
-                    child: MusicTile(
-                      item: audio
-                    ),
-                  );
-                })),
-              ),
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                        return Container(
+                          child: MusicTile(
+                            item: list[index]
+                          ),
+                        );
+                    },
+                  ),
+                );
+              }
             )
           ],
-        ),
-      ),
-    );
+        )
+      );
   }
 }

@@ -1,6 +1,7 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:musicplayer/player/controller.player.dart';
+import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AudioCustomQuery {
@@ -33,13 +34,13 @@ class AudioCustomQuery {
   /// interrupt all user interaction until your devices is scaned
   /// for new artists. [cache] will save you extra work and will use
   /// the artitst that already has been scanned in your device.
-  Future<List<ArtistModel>> queryArtists([withLoader = false, cache=true]) async {
+  Future<List<ArtistModel>> queryArtists([withLoader = false, cache=true, message='']) async {
     
     if(cache && queryedArtist.isNotEmpty) return queryedArtist;
 
     if(withLoader) {
       SmartDialog.showLoading(
-        msg: "Searching for artists",
+        msg: message,
       );
     }
 
@@ -60,11 +61,11 @@ class AudioCustomQuery {
   /// true then a loader modal sheet is triggered and will
   /// interrupt all user interaction until your devices is scaned
   /// for new songs
-  Future<List<SongModel>> quearyAudios([withLoader = true]) async {
+  Future<List<SongModel>> quearyAudios([withLoader = true, message = '']) async {
 
     if(withLoader) {
       SmartDialog.showLoading(
-        msg: "Searching for music",
+        msg: message,
       );
     }
 
@@ -84,7 +85,16 @@ class AudioCustomQuery {
     }
 
     final List<AudioSource> playlist = List<AudioSource>.from(audios.map((SongModel e){
-        return AudioSource.uri(Uri.parse(e.data));
+        return AudioSource.uri(
+          Uri.parse(e.data),
+          tag: MediaItem(
+            id: e.id.toString(), 
+            title: e.title,
+            album: e.album,
+            artist: e.artist,
+            artUri: e.artwork == null? null:Uri.parse(e.artwork!)
+          )
+        );
     }));
 
     queryedAudios.clear();
