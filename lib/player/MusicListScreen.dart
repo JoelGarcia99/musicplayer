@@ -51,17 +51,23 @@ class MusicListWidget extends StatelessWidget {
     return Column(
       children: [
         PlayerAppBar(title: S.of(mainContext).music_list, withHeaders: true),
-        Expanded(
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              
-              return MusicTile(
-                item: items[index]
-              );
-            }
-          ),
+        StreamBuilder<List<SongModel>>(
+          stream: AudioCustomQuery().songStream,
+          initialData: AudioCustomQuery.queryedAudios,
+          builder: (context, snapshot) {
+            return Expanded(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  
+                  return MusicTile(
+                    item: snapshot.data![index]
+                  );
+                }
+              ),
+            );
+          }
         ),
         SizedBox(height: screenSize!.height * 0.1,)
       ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:intl/intl_browser.dart';
 import 'package:musicplayer/data/user_preferences.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
@@ -29,8 +28,6 @@ void main()async{
   /// This will initialize all the services in the background such
   /// as notification banner and lock screen controlls
   await PlayerController().initService();
-
-  UserPreferences().language = await findSystemLocale();
 
   /// blocking landscape rotation
   SystemChrome.setPreferredOrientations([

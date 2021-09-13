@@ -50,9 +50,7 @@ class PlayerController {
   /// a paused song or if you wanna play a new one. [index]
   /// is the position of your song in the playlist
   Future<void> play({bool isNewSong=true, int index = 0}) async {
-    // await _audioPlayer.stop();
     if(isNewSong) {await _audioPlayer.seek(Duration(seconds: 0), index: index);}
-    // _audioPlayer.play();
     _audioHandler.play();
   }
 
@@ -65,7 +63,8 @@ class PlayerController {
   /// You can't assign songs individually due the way this media player
   /// is built, if you wanna do so, you should create a new [audios] list
   /// with only one element, the one you wanna play
-  Future<void> generatePlaylist(List<AudioSource> audios) async {
+  Future<void> generatePlaylist(List<AudioSource> audios, [bool updateBackground = false]) async {
+    
     await _audioPlayer.setAudioSource(
       ConcatenatingAudioSource(
         useLazyPreparation: true,
@@ -75,6 +74,12 @@ class PlayerController {
       preload: true,
       initialPosition: Duration(seconds: 0)
     );
+
+    if(updateBackground) {
+      handler.updateMediaItem(
+        _audioPlayer.audioSource!.sequence[0].tag as MediaItem
+      );  
+    }  
   }
 
   /// This will update the current plyalist based on the

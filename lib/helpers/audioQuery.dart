@@ -1,15 +1,40 @@
+import 'dart:async';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+/// Singleton class to query local audios
 class AudioCustomQuery {
+  static AudioCustomQuery? _instance;
 
+  factory AudioCustomQuery() {
+    if(_instance == null ){
+      _instance = new AudioCustomQuery._();
+    }
+
+    return _instance!;
+  }
+
+  AudioCustomQuery._();
+
+  
   static List<SongModel> queryedAudios = [];
   static List<ArtistModel> queryedArtist = [];
   static List<AlbumModel> queryedAlbums = [];
   static Map<String, int> musicDataindex  = new Map<String, int>();
+
+  StreamController<List<SongModel>> _songStream = new StreamController.broadcast();
+
+  Stream<List<SongModel>> get songStream => _songStream.stream;
+  Function(List<SongModel>) get songSink => _songStream.sink.add;
+
+
+  dispose() {
+    _songStream.close();
+  }
 
   /// Search albums all along your devices. If [shouldRefresh] is
   /// false then you will use albums that are already in your RAM,
@@ -61,7 +86,7 @@ class AudioCustomQuery {
   /// true then a loader modal sheet is triggered and will
   /// interrupt all user interaction until your devices is scaned
   /// for new songs
-  Future<List<SongModel>> quearyAudios([withLoader = true, message = '']) async {
+  Future<List<SongModel>> quearyAudios([withLoader = true, message = '', updateBackground = false]) async {
 
     if(withLoader) {
       SmartDialog.showLoading(
@@ -92,7 +117,8 @@ class AudioCustomQuery {
             title: e.title,
             album: e.album,
             artist: e.artist,
-            artUri: e.artwork == null? null:Uri.parse(e.artwork!)
+            duration: Duration(milliseconds: e.duration),
+            artUri: e.artwork == null? null:Uri.parse(e.artwork!),
           )
         );
     }));
@@ -101,8 +127,9 @@ class AudioCustomQuery {
     queryedAudios.addAll(audios);
 
     // by default you will get a playlist where all the songs are in.
-    await PlayerController().generatePlaylist(playlist);
+    await PlayerController().generatePlaylist(playlist, updateBackground);
 
+    songSink(queryedAudios);
     return audios;
   }
 

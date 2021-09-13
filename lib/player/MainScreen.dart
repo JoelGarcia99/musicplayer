@@ -53,12 +53,13 @@ class MainPlayerScreen extends StatelessWidget {
   Widget _getContent(BuildContext context) {
     return SafeArea(
       // child: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
+        child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
+                Container(
+                  child: _buildAppBar(context),
+                ),
                 Container(
                   width: screenSize!.width,
                   child: Padding(
@@ -69,36 +70,6 @@ class MainPlayerScreen extends StatelessWidget {
                 Expanded(child: Container()),
               ],
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black38,
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black,
-                        Colors.black.withOpacity(0.9),
-                        Colors.black.withOpacity(0.5),
-                        Colors.black.withOpacity(0.1),
-                        Colors.black.withOpacity(0.01),
-                      ]
-                    )
-                  ),
-                  padding: EdgeInsets.only(
-                    top: 5.0,
-                    bottom: screenSize!.height * 0.1, 
-                    left: 10.0,
-                    right: 10.0
-                  ),
-                  child: _buildAppBar(context),
-                ),
-              ],
-            ),
-          ],
-        ),
       // ),
     );
   }

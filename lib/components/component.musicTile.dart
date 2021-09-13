@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/DeviceHelper.dart';
@@ -47,7 +48,7 @@ class MusicTile extends StatelessWidget {
 
         return Container(
           margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
-          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
+          padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
           decoration: BoxDecoration(
               color: isCurrent?
                 AppThemeData().focusCardColo
@@ -60,17 +61,20 @@ class MusicTile extends StatelessWidget {
                   offset: Offset(1.0, 2.0),
                 )
               ]),
-          child: ExpansionTile(
+          child: ListTile(
             title: Text(
-              item.displayName,
+              "${item.bookmark} ${item.displayName}",
               maxLines: 1,
               style: TextStyle(
-                color: textColor
+                color: textColor,
+                fontWeight: FontWeight.bold
               ),
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Text(
-              item.artist,
+              "${item.artist} - ${item.album}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: textColor
               ),
@@ -96,9 +100,9 @@ class MusicTile extends StatelessWidget {
                     playerController.play(isNewSong: false);
                 } else {
                   await playerController.play(
-                      index:
-                          AudioCustomQuery.musicDataindex[item.data] ?? 0,
-                      isNewSong: true);
+                    index: AudioCustomQuery.musicDataindex[item.data] ?? 0,
+                    isNewSong: true
+                  );
                 }
               },
               icon: Icon(
@@ -106,90 +110,6 @@ class MusicTile extends StatelessWidget {
                 color: iconColor
               )
             ),
-            children: [
-              ListTile(
-                leading: Icon(
-                  Icons.timer,
-                  color: iconColor,
-                ),
-                title: Text(
-                  S.of(context).duration,
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-                trailing: Text(
-                  songHelper.formatDuration(
-                    Duration(milliseconds: item.duration)
-                  ),
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.album,
-                  color: iconColor,
-                ),
-                title: Text(
-                  S.of(context).albums,
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-                trailing: Text(
-                  item.album,
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.info_outline,
-                  color: iconColor,
-                ),
-                title: Text(
-                  S.of(context).size,
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-                trailing: Text(
-                  songHelper.getSizeString(item.size * 1.0),
-                  style: TextStyle(
-                    color: textColor
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.delete,
-                        color: AppThemeData().textFocusColor
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        elevation: MaterialStateProperty.all(5.0)
-                      ),
-                      label: Text(
-                        S.of(context).delete,
-                        style: TextStyle(
-                          color: AppThemeData().textFocusColor
-                        )
-                      ),
-                      onPressed: (){},
-                    ),
-                  ],
-                ),
-              )
-            ],
           ),
         );
       },

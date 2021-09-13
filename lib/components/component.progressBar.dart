@@ -36,6 +36,8 @@ class ProgressBar extends StatelessWidget {
               Slider(
                 min: 0.0,
                 max: maxValue,
+                activeColor: Colors.grey,
+                thumbColor: Colors.grey,
                 value: (position >= 0.0 && position <= maxValue)? position:0.0,
                 onChanged: (position){
                   controller.player.seek(Duration(milliseconds: position~/1));

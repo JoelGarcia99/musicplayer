@@ -1,10 +1,9 @@
 import 'package:animated_overflow/animated_overflow.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/components/component.rotationArtwork.dart';
 import 'package:musicplayer/services/audio_custom_service.dart';
 import 'package:musicplayer/ui/theme.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerArtWork extends StatelessWidget {
   
@@ -19,7 +18,6 @@ class PlayerArtWork extends StatelessWidget {
     /// the entire device's screen size. [portFraction] in the other
     /// hand is the size of the image
     final containerSize = MediaQuery.of(context).size;
-    final portFraction = this.imageSize ?? containerSize.width;
 
     return StreamBuilder<int?>(
       stream: PlayerController().player.currentIndexStream,
@@ -29,37 +27,13 @@ class PlayerArtWork extends StatelessWidget {
         final MediaItem? current = PlayerController().player.audioSource?.sequence[
           snapshot.data!
         ].tag as MediaItem;
+        
+        final portFraction = MediaQuery.of(context).size.width * 0.8;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            QueryArtworkWidget(
-              artworkHeight: portFraction,
-              artworkWidth: portFraction,
-              id:  int.parse(current?.id ?? "0"),
-              type: ArtworkType.AUDIO,
-              artwork: current?.artUri?.path,
-              artworkBorder: BorderRadius.only(
-                bottomLeft: Radius.circular(50.0),
-                bottomRight: Radius.circular(50.0),
-              ),
-              nullArtworkWidget: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50.0),
-                  bottomRight: Radius.circular(50.0),
-                ),
-                child: Container(
-                  color: AppThemeData().cardColor,
-                  height: portFraction,
-                  width: portFraction,
-                  child: Icon(
-                    Icons.music_note,
-                    size: portFraction * 0.5,
-                  ),
-                )
-              ),
-              deviceSDK: DeviceHelper().sdk,
-            ),
+            RotationArtwork(portFraction: portFraction),
             SizedBox(height: 10.0,),
             Center(
               child: Container(
@@ -86,3 +60,4 @@ class PlayerArtWork extends StatelessWidget {
     );
   }
 }
+

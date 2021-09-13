@@ -15,11 +15,13 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
 
     _player.currentIndexStream.listen((int? index) {
       if(index != null && _player.audioSource != null) {
-        mediaItem.add(
-          _player.audioSource!.sequence[index].tag as MediaItem
-        );
+        currentMediaItem = _player.audioSource!.sequence[index].tag as MediaItem;
       }
     });
+  }
+
+  set currentMediaItem(MediaItem item) {
+    mediaItem.add(item);
   }
 
   @override
