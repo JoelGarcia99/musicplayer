@@ -48,8 +48,11 @@ class MenuSettingsItems {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            S.of(context).choose_language, 
+            S.of(context).choose_language,
             textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppThemeData().textColor
+            ),
           ),
           actions: [
             TextButton(
@@ -65,7 +68,6 @@ class MenuSettingsItems {
 
                 return GestureDetector(
                   onTap: () {
-                    
                     Intl.defaultLocale = prefix;
                     S.load(Locale(prefix)).then((_) {
                       UserPreferences().language = prefix;
@@ -83,10 +85,10 @@ class MenuSettingsItems {
                     decoration: BoxDecoration(
                       color: UserPreferences().language == prefix? 
                         AppThemeData().focusCardColo:
-                        Colors.white,
+                        AppThemeData().cardColor.withOpacity(0.2),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[200]!,
+                          color: Colors.grey[850]!,
                           blurRadius: 2.0,
                           spreadRadius: 1.0,
                           offset: Offset(0.0, 5.0)
@@ -97,10 +99,32 @@ class MenuSettingsItems {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(prefix),
-                        Text(LanguageHelper.getLanName(language)),
+                        Text(
+                          prefix,
+                          style: TextStyle(
+                            color: 
+                              UserPreferences().language == prefix?
+                              AppThemeData().textLightColor:
+                              AppThemeData().textColor
+                          )
+                        ),
+                        Text(
+                          LanguageHelper.getLanName(language),
+                          style: TextStyle(
+                            color: 
+                              UserPreferences().language == prefix?
+                              AppThemeData().textLightColor:
+                              AppThemeData().textColor
+                          )
+                        ),
                         UserPreferences().language == prefix?
-                          Icon(Icons.check)
+                          Icon(
+                            Icons.check,
+                            color: 
+                              UserPreferences().language == prefix?
+                              AppThemeData().textLightColor:
+                              AppThemeData().textColor
+                          )
                           :Container(),
                       ],
                     ),

@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your language"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "enter_valid_name":
+            MessageLookupByLibrary.simpleMessage("Please, enter a valid name"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "language_changed": MessageLookupByLibrary.simpleMessage(
             "Your language has been changed. Restart the app to apply the changes"),
@@ -39,19 +41,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "music_player": MessageLookupByLibrary.simpleMessage("Music Player"),
         "next_in_playlist":
             MessageLookupByLibrary.simpleMessage("Next in playlist"),
+        "nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("There is no data to show"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "scan_local_music":
             MessageLookupByLibrary.simpleMessage("Scan for local music"),
         "scan_music_in_storage": MessageLookupByLibrary.simpleMessage(
             "Scan for music files in your local storage"),
         "searching_music":
             MessageLookupByLibrary.simpleMessage("Searching for musics"),
+        "searching_playlists":
+            MessageLookupByLibrary.simpleMessage("Searching for playlists"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "singers": MessageLookupByLibrary.simpleMessage("Singers"),
         "size": MessageLookupByLibrary.simpleMessage("Size"),
         "there_are_no_items":
             MessageLookupByLibrary.simpleMessage("There are no items"),
         "tracks": MessageLookupByLibrary.simpleMessage("Tracks"),
+        "write_playlist_name":
+            MessageLookupByLibrary.simpleMessage("Write the playlist name"),
         "your_current_lan_is":
             MessageLookupByLibrary.simpleMessage("Your current language is")
       };

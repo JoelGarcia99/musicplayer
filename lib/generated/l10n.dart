@@ -120,6 +120,16 @@ class S {
     );
   }
 
+  /// `Please, enter a valid name`
+  String get enter_valid_name {
+    return Intl.message(
+      'Please, enter a valid name',
+      name: 'enter_valid_name',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language`
   String get language {
     return Intl.message(
@@ -145,6 +155,16 @@ class S {
     return Intl.message(
       'Searching for musics',
       name: 'searching_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching for playlists`
+  String get searching_playlists {
+    return Intl.message(
+      'Searching for playlists',
+      name: 'searching_playlists',
       desc: '',
       args: [],
     );
@@ -200,11 +220,31 @@ class S {
     );
   }
 
+  /// `There is no data to show`
+  String get nothing_to_show {
+    return Intl.message(
+      'There is no data to show',
+      name: 'nothing_to_show',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Playlists`
   String get playlists {
     return Intl.message(
       'Playlists',
       name: 'playlists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
       desc: '',
       args: [],
     );
@@ -275,6 +315,16 @@ class S {
     return Intl.message(
       'Tracks',
       name: 'tracks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write the playlist name`
+  String get write_playlist_name {
+    return Intl.message(
+      'Write the playlist name',
+      name: 'write_playlist_name',
       desc: '',
       args: [],
     );

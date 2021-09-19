@@ -55,7 +55,9 @@ class AppThemeData {
   
   final Color iconColor = new Color(0xffD9D9D9);
   final Color appbarColor = new Color(0xffD9D9D9);
-  final Color cardColor = new Color(0xffD9D9D9);
+  final Color cardColor = Colors.grey[800]!;
+  final Color primaryButtonColor = Colors.yellow;
+  final Color primaryButtonTextColor = Colors.black;
   final Color focusCardColo = new Color(0xffF3FEB0);
   final Color textColor = Colors.white;
   final Color textFocusColor = Colors.black;

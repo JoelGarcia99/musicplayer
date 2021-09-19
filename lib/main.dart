@@ -62,6 +62,8 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate
           ],
+          themeMode: ThemeMode.dark,
+          darkTheme: ThemeData.dark(),
           supportedLocales: S.delegate.supportedLocales,
           builder: (context, child){
             return FlutterSmartDialog(

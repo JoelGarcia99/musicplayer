@@ -54,6 +54,17 @@ class PlayerDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
+                leading: Icon(Icons.playlist_add_check, color: AppThemeData().iconColor),
+                title: Text(
+                  S.of(context).playlists, 
+                  style: TextStyle(color: AppThemeData().iconColor),
+                ),
+                onTap: () {
+                  SmartDialog.dismiss();
+                  Navigator.of(parentContext).pushReplacementNamed(Routes.PLAYLISTS);
+                },
+              ),
+              ListTile(
                 leading: FaIcon(
                   FontAwesomeIcons.youtube,
                   color: AppThemeData().iconColor,

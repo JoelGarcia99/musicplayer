@@ -24,6 +24,7 @@ class AudioCustomQuery {
   static List<SongModel> queryedAudios = [];
   static List<ArtistModel> queryedArtist = [];
   static List<AlbumModel> queryedAlbums = [];
+  static List<PlaylistModel> queryedPlaylists = [];
   static Map<String, int> musicDataindex  = new Map<String, int>();
 
   StreamController<List<SongModel>> _songStream = new StreamController.broadcast();
@@ -147,5 +148,35 @@ class AudioCustomQuery {
     for(int i=0; i<audios.length; ++i) {
       musicDataindex[audios[i].data] = i;
     }
+  }
+
+  /// Query local playlists on your device. If [forceSearch] is set to
+  /// true then this will query again your device for music and no matter
+  /// if there is cache
+  Future<List<PlaylistModel>> queryPlaylist([bool forceSearch = false]) async {
+
+    /// If there is already data about playlists then you can
+    /// avoid searching
+    if(!forceSearch && queryedPlaylists.isNotEmpty) {
+      return queryedPlaylists;
+    }
+
+    final playlists = await OnAudioQuery().queryPlaylists(
+      PlaylistSortType.PLAYLIST_NAME,
+      OrderType.ASC_OR_SMALLER,
+      null, 
+      true // request permissions
+    );
+
+    queryedPlaylists.clear();
+    queryedPlaylists.addAll(playlists);
+
+    return playlists;
+  }
+
+  Future<bool> createPlaylist(String name) async {
+    final response = await OnAudioQuery().createPlaylist(name);
+
+    return response;
   }
 }

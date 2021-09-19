@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Elige tu idioma"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
+        "enter_valid_name":
+            MessageLookupByLibrary.simpleMessage("Ingrese un nombre válido"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "language_changed": MessageLookupByLibrary.simpleMessage(
             "El idioma ha sido cambiado. Para ver los cambios reinicie la app"),
@@ -39,19 +41,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "music_player": MessageLookupByLibrary.simpleMessage("Reproductor"),
         "next_in_playlist":
             MessageLookupByLibrary.simpleMessage("Siguientes en playlist"),
+        "nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("No hay nada que mostrar"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
+        "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "scan_local_music": MessageLookupByLibrary.simpleMessage(
             "Buscar música en almacenamiento"),
         "scan_music_in_storage": MessageLookupByLibrary.simpleMessage(
             "Buscar música en almacenamiento local"),
         "searching_music":
             MessageLookupByLibrary.simpleMessage("Buscando tus músicas"),
+        "searching_playlists": MessageLookupByLibrary.simpleMessage(
+            "Buscando listas de reproducción"),
         "settings": MessageLookupByLibrary.simpleMessage("Configuraciones"),
         "singers": MessageLookupByLibrary.simpleMessage("Cantantes"),
         "size": MessageLookupByLibrary.simpleMessage("Tamaño"),
         "there_are_no_items":
             MessageLookupByLibrary.simpleMessage("No hay elementos"),
         "tracks": MessageLookupByLibrary.simpleMessage("Canciones"),
+        "write_playlist_name": MessageLookupByLibrary.simpleMessage(
+            "Escribe el nombre de la lista de reproducció"),
         "your_current_lan_is":
             MessageLookupByLibrary.simpleMessage("Tu idioma actual es")
       };

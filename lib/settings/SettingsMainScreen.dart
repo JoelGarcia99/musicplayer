@@ -11,8 +11,6 @@ part 'data.menuSettings.dart';
 
 class SettingsMainScreen extends StatelessWidget {
 
-  final UserPreferences _userPrefs = new UserPreferences();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
