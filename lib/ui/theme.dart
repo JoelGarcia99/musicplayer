@@ -60,6 +60,7 @@ class AppThemeData {
   final Color primaryButtonTextColor = Colors.black;
   final Color focusCardColo = new Color(0xffF3FEB0);
   final Color textColor = Colors.white;
+  final Color textDangerColor = Colors.red[700]!;
   final Color textFocusColor = Colors.black;
   
   final Color textLightColor = Colors.black;

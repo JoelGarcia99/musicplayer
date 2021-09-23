@@ -68,7 +68,13 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
                 Expanded(
                   child: Container(),
                 ),
-                if (widget.actions != null) ...widget.actions!
+                if (widget.actions != null) ...[
+                  ...widget.actions!,
+                  IconButton(
+                      icon: Icon(Icons.settings, color: AppThemeData().iconColor),
+                      onPressed: ()=>Navigator.of(context).pushNamed(Routes.SETTINGS),
+                  )
+                ]
                 else
                   IconButton(
                       icon: Icon(Icons.settings, color: AppThemeData().iconColor),
@@ -77,41 +83,6 @@ class _PlayerAppBarState extends State<PlayerAppBar> {
               ],
             ),
           ),
-          // if (widget.withHeaders)
-          //   SingleChildScrollView(
-          //     scrollDirection: Axis.horizontal,
-          //     physics: BouncingScrollPhysics(),
-          //     child: Row(
-          //       children: [
-          //         customIndexedButton(
-          //             onPressed: () {
-          //               Navigator.of(context)
-          //                   .pushReplacementNamed(Routes.MUSIC_LIST);
-          //             },
-          //             icon: Icons.equalizer,
-          //             text: "All",
-          //             type: AppBarMenuOptions.All),
-          //         customIndexedButton(
-          //             onPressed: () {
-          //               Navigator.of(context)
-          //                   .pushReplacementNamed(Routes.SINGERS_LIST);
-          //             },
-          //             icon: Icons.person,
-          //             text: "Singers",
-          //             type: AppBarMenuOptions.Singers),
-          //         customIndexedButton(
-          //             onPressed: () {},
-          //             icon: Icons.album,
-          //             text: "Albums",
-          //             type: AppBarMenuOptions.Albums),
-          //         customIndexedButton(
-          //             onPressed: () {},
-          //             icon: Icons.library_music,
-          //             text: "Playlists",
-          //             type: AppBarMenuOptions.Playlists),
-          //       ],
-          //     ),
-          //   ),
         ],
       ),
     );

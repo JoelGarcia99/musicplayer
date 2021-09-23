@@ -21,12 +21,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "account": MessageLookupByLibrary.simpleMessage("Cuenta"),
+        "add_music": MessageLookupByLibrary.simpleMessage("Agregar música"),
         "albums": MessageLookupByLibrary.simpleMessage("Álbumes"),
+        "alert": MessageLookupByLibrary.simpleMessage("¡Alerta!"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "choose_language":
             MessageLookupByLibrary.simpleMessage("Elige tu idioma"),
+        "confirm_delete_playlist": MessageLookupByLibrary.simpleMessage(
+            "¿Desea eliminar esta playlist? Esta acción es irreversible"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
         "enter_valid_name":
@@ -43,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Siguientes en playlist"),
         "nothing_to_show":
             MessageLookupByLibrary.simpleMessage("No hay nada que mostrar"),
+        "playlist_was_deleted":
+            MessageLookupByLibrary.simpleMessage("La playlist fue eliminada"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "scan_local_music": MessageLookupByLibrary.simpleMessage(
@@ -59,8 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "there_are_no_items":
             MessageLookupByLibrary.simpleMessage("No hay elementos"),
         "tracks": MessageLookupByLibrary.simpleMessage("Canciones"),
-        "write_playlist_name": MessageLookupByLibrary.simpleMessage(
-            "Escribe el nombre de la lista de reproducció"),
+        "write_playlist_name":
+            MessageLookupByLibrary.simpleMessage("Nombre de la playlist"),
         "your_current_lan_is":
             MessageLookupByLibrary.simpleMessage("Tu idioma actual es")
       };

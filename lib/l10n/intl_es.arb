@@ -1,10 +1,14 @@
 {
     "@@locale": "es",
+    "accept": "Aceptar",
     "account": "Cuenta",
+    "add_music": "Agregar música",
     "albums": "Álbumes",
+    "alert": "¡Alerta!",
     "all": "Todos",
     "cancel": "Cancelar",
     "choose_language": "Elige tu idioma",
+    "confirm_delete_playlist": "¿Desea eliminar esta playlist? Esta acción es irreversible",
     "delete": "Eliminar",
     "duration": "Duración",
     "enter_valid_name": "Ingrese un nombre válido",
@@ -19,6 +23,7 @@
     "next_in_playlist": "Siguientes en playlist",
     "nothing_to_show": "No hay nada que mostrar",
     "playlists": "Playlists",
+    "playlist_was_deleted": "La playlist fue eliminada",
     "save": "Guardar",
     "scan_local_music": "Buscar música en almacenamiento",
     "scan_music_in_storage": "Buscar música en almacenamiento local",
@@ -27,6 +32,6 @@
     "size": "Tamaño",
     "there_are_no_items": "No hay elementos",
     "tracks": "Canciones",
-    "write_playlist_name": "Escribe el nombre de la lista de reproducció",
+    "write_playlist_name": "Nombre de la playlist",
     "your_current_lan_is": "Tu idioma actual es"
 }

@@ -103,9 +103,17 @@ class MusicTile extends StatelessWidget {
                   );
                 }
               },
-              icon: Icon(
-                isPlaying ? Icons.pause : Icons.play_arrow,
-                color: iconColor
+              icon: StreamBuilder<bool>(
+                stream: PlayerController().player.playingStream,
+                initialData: false,
+                builder: (context, snapshot) {
+                  return Icon(
+                    isCurrent && snapshot.data!?
+                    Icons.pause: 
+                    Icons.play_arrow,
+                    color: iconColor
+                  );
+                }
               )
             ),
           ),

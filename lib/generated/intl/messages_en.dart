@@ -21,12 +21,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
+        "add_music": MessageLookupByLibrary.simpleMessage("Add music"),
         "albums": MessageLookupByLibrary.simpleMessage("Albums"),
+        "alert": MessageLookupByLibrary.simpleMessage("Alert!"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_language":
             MessageLookupByLibrary.simpleMessage("Choose your language"),
+        "confirm_delete_playlist": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to permanently delete this playlist?"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "enter_valid_name":
@@ -43,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Next in playlist"),
         "nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is no data to show"),
+        "playlist_was_deleted":
+            MessageLookupByLibrary.simpleMessage("The playlist was removed"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "scan_local_music":

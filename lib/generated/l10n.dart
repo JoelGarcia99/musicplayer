@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Account`
   String get account {
     return Intl.message(
@@ -60,11 +70,31 @@ class S {
     );
   }
 
+  /// `Add music`
+  String get add_music {
+    return Intl.message(
+      'Add music',
+      name: 'add_music',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Albums`
   String get albums {
     return Intl.message(
       'Albums',
       name: 'albums',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alert!`
+  String get alert {
+    return Intl.message(
+      'Alert!',
+      name: 'alert',
       desc: '',
       args: [],
     );
@@ -95,6 +125,16 @@ class S {
     return Intl.message(
       'Choose your language',
       name: 'choose_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to permanently delete this playlist?`
+  String get confirm_delete_playlist {
+    return Intl.message(
+      'Are you sure you want to permanently delete this playlist?',
+      name: 'confirm_delete_playlist',
       desc: '',
       args: [],
     );
@@ -235,6 +275,16 @@ class S {
     return Intl.message(
       'Playlists',
       name: 'playlists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The playlist was removed`
+  String get playlist_was_deleted {
+    return Intl.message(
+      'The playlist was removed',
+      name: 'playlist_was_deleted',
       desc: '',
       args: [],
     );

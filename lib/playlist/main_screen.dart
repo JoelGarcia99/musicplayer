@@ -3,6 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:musicplayer/components/component.appBar.dart';
 import 'package:musicplayer/components/component.bottomSheet.dart';
 import 'package:musicplayer/components/component.drawer.dart';
+import 'package:musicplayer/components/component.noItem.dart';
 import 'package:musicplayer/generated/l10n.dart';
 import 'package:musicplayer/helpers/audioQuery.dart';
 import 'package:musicplayer/router/routes.dart';
@@ -23,16 +24,6 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
 
     return Scaffold(
       drawer: PlayerDrawer(parentContext: context),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppThemeData().primaryButtonColor,
-        child: Icon(
-          Icons.add,
-          color: AppThemeData().primaryButtonTextColor,
-        ),
-        onPressed: () {
-          showPlaylistCreationDialog();
-        },
-      ),
       bottomSheet: Container(
         height: screenSize.height * 0.1,
         child: PlayerBottomSheet()
@@ -41,6 +32,17 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
         children: [
           PlayerAppBar(
             title: S.of(context).playlists,
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: AppThemeData().textColor
+                ),
+                onPressed: () {
+                  showPlaylistCreationDialog();
+                },
+              ),
+            ]
           ),
           Expanded(
             child: RefreshIndicator(
@@ -60,28 +62,7 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
                   }
             
                   if(snapshot.hasData && snapshot.data!.isEmpty) {
-                    return Center(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.sentiment_dissatisfied_outlined,
-                              size: 70.0,
-                              color: AppThemeData().iconColor,
-                            ),
-                            Text(
-                              S.of(context).there_are_no_items,
-                              style: TextStyle(
-                                color: AppThemeData().textColor,
-                                fontSize: 20.0
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    return NoItemWidget();
                   }
             
                   // closing the loader that will appear while
@@ -103,7 +84,10 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
                         onTap: () {
                           Navigator.of(context).pushNamed(
                             Routes.PLAYLIST_X,
-                            arguments: snapshot.data![index]
+                            arguments: {
+                              "model": snapshot.data![index],
+                              "setState": setState
+                            }
                           );
                         },
                         child: Container(
@@ -163,15 +147,23 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
           ),
           actions: [
             TextButton.icon(
+              label: Text(S.of(context).cancel),
+              icon: Icon(Icons.cancel),
+              onPressed: ()=>Navigator.of(context).pop(),
+            ),
+            TextButton.icon(
               onPressed: (){
                 if(formKey.currentState?.validate() ?? false) {
                   formKey.currentState?.save();
 
                   AudioCustomQuery().createPlaylist(
                     textController.text
-                  ).then((success){
+                  ).then((success)async{
                     if(success) {
                       Navigator.of(context).pop();
+                      SmartDialog.showLoading();
+                      await AudioCustomQuery().queryPlaylist(true);
+                      SmartDialog.dismiss();
                       setState(() {});
                     }
                   });
@@ -185,7 +177,7 @@ class _PlaylistMainScreenState extends State<PlaylistMainScreen> {
               }, 
               icon: Icon(Icons.save), 
               label: Text(S.of(context).save)
-            )
+            ),
           ],
         );
       }, 

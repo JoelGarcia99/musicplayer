@@ -174,9 +174,50 @@ class AudioCustomQuery {
     return playlists;
   }
 
+  Future<List<SongModel>> queryMusicByPlaylist(int playlistID) async {
+    final musics = await OnAudioQuery().queryAudiosFrom(
+      AudiosFromType.PLAYLIST,
+      playlistID
+    );
+
+    return musics;
+  }
+
   Future<bool> createPlaylist(String name) async {
     final response = await OnAudioQuery().createPlaylist(name);
 
     return response;
+  }
+
+  Future<bool> removePlaylist(int id) async {
+    return await OnAudioQuery().removePlaylist(id);
+  }
+
+  Future<bool> editPlaylistName(int id, String newName) async {
+    final success = await OnAudioQuery().renamePlaylist(id, newName, true);
+
+    if(success) {
+      final index = AudioCustomQuery.queryedPlaylists.indexWhere((element) {
+        return element.id == id;
+      });
+
+      final currentModel = AudioCustomQuery.queryedPlaylists[index];
+
+      AudioCustomQuery.queryedPlaylists.replaceRange(
+        index, 
+        index,
+        [
+          new PlaylistModel({
+            "_id": currentModel.id,
+            "name": currentModel.playlistName,
+            "_data": currentModel.data,
+            "date_added": currentModel.dateAdded,
+            "date_modified": currentModel.dateModified,
+          })
+        ]
+      );
+    }
+
+    return success;
   }
 }
