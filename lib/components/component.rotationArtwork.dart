@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/helpers/helper.device.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';

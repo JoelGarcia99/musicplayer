@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:musicplayer/generated/l10n.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/router/routes.dart';
 import 'package:musicplayer/ui/theme.dart';
 

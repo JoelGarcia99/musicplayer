@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
+import 'package:musicplayer/helpers/helper.device.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

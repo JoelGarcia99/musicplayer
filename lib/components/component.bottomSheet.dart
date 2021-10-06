@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/player/MainScreen.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/helpers/helper.device.dart';
+import 'package:musicplayer/helpers/helper.audio_query.dart';
+import 'package:musicplayer/player/screen.player.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:route_transitions/route_transitions.dart';

@@ -11,6 +11,7 @@
     "confirm_delete_playlist": "Are you sure you want to permanently delete this playlist?",
     "delete": "Delete",
     "duration": "Duration",
+    "edit": "Edit",
     "enter_valid_name": "Please, enter a valid name",
     "language": "Language",
     "language_changed": "Your language has been changed. Restart the app to apply the changes",
@@ -22,7 +23,10 @@
     "music_player": "Music Player",
     "next_in_playlist": "Next in playlist",
     "nothing_to_show": "There is no data to show",
+    "number_songs": "Songs:",
+    "open": "Open",
     "playlists": "Playlists",
+    "playlist_created": "Playlist created!",
     "playlist_was_deleted": "The playlist was removed",
     "save": "Save",
     "scan_local_music": "Scan for local music",
@@ -33,5 +37,6 @@
     "there_are_no_items": "There are no items",
     "tracks": "Tracks",
     "write_playlist_name": "Write the playlist name",
+    "write_playlist_about": "Write the playlist description",
     "your_current_lan_is": "Your current language is"
 }

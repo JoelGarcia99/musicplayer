@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿Desea eliminar esta playlist? Esta acción es irreversible"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
         "duration": MessageLookupByLibrary.simpleMessage("Duración"),
+        "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "enter_valid_name":
             MessageLookupByLibrary.simpleMessage("Ingrese un nombre válido"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
@@ -48,6 +49,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Siguientes en playlist"),
         "nothing_to_show":
             MessageLookupByLibrary.simpleMessage("No hay nada que mostrar"),
+        "number_songs": MessageLookupByLibrary.simpleMessage("Canciones:"),
+        "open": MessageLookupByLibrary.simpleMessage("Abrir"),
+        "playlist_created":
+            MessageLookupByLibrary.simpleMessage("Playlist creada"),
         "playlist_was_deleted":
             MessageLookupByLibrary.simpleMessage("La playlist fue eliminada"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
@@ -66,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "there_are_no_items":
             MessageLookupByLibrary.simpleMessage("No hay elementos"),
         "tracks": MessageLookupByLibrary.simpleMessage("Canciones"),
+        "write_playlist_about":
+            MessageLookupByLibrary.simpleMessage("Agrega una descripción"),
         "write_playlist_name":
             MessageLookupByLibrary.simpleMessage("Nombre de la playlist"),
         "your_current_lan_is":

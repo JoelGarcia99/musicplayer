@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/helpers/helper.device.dart';
+import 'package:musicplayer/helpers/helper.audio_query.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/ui/theme.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -11,9 +11,10 @@ class MusicTile extends StatelessWidget {
   late final PlayerController playerController;
 
   final SongModel item;
+  final bool showPlayButton;
 
   MusicTile({
-    required this.item,
+    required this.item, this.showPlayButton = true,
   }) {
     playerController = new PlayerController();
   }
@@ -37,8 +38,6 @@ class MusicTile extends StatelessWidget {
           isCurrent = false;
         }
 
-        bool isPlaying = isCurrent && playerController.player.playing;
-
         Color textColor = isCurrent?
           AppThemeData().textFocusColor
           :AppThemeData().textColor;
@@ -59,63 +58,63 @@ class MusicTile extends StatelessWidget {
                   offset: Offset(1.0, 2.0),
                 )
               ]),
-          child: ListTile(
-            title: Text(
-              "${item.bookmark} ${item.displayName}",
-              maxLines: 1,
-              style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.bold
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-            subtitle: Text(
-              "${item.artist} - ${item.album}",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: textColor
-              ),
-            ),
-            leading: QueryArtworkWidget(
-              keepOldArtwork: true,
-              artworkBorder: BorderRadius.zero,
-              id: item.id,
-              type: ArtworkType.AUDIO,
-              artwork: item.artwork,
-              deviceSDK: DeviceHelper().sdk,
-              nullArtworkWidget: Icon(
-                Icons.music_note, 
-                color: iconColor
-              )
-            ),
-            trailing: IconButton(
-              onPressed: () async {
-                if (isCurrent) {
-                  if (isPlaying)
-                    await playerController.pause();
-                  else
-                    playerController.play(isNewSong: false);
-                } else {
-                  await playerController.play(
-                    index: AudioCustomQuery.musicDataindex[item.data] ?? 0,
-                    isNewSong: true
-                  );
-                }
-              },
-              icon: StreamBuilder<bool>(
-                stream: PlayerController().player.playingStream,
-                initialData: false,
-                builder: (context, snapshot) {
-                  return Icon(
-                    isCurrent && snapshot.data!?
-                    Icons.pause: 
-                    Icons.play_arrow,
+          child: StreamBuilder<bool>(
+            stream: PlayerController().player.playingStream,
+            initialData: false,
+            builder: (context, snapshot) {
+              return ListTile(
+                title: Text(
+                  "${item.bookmark} ${item.displayName}",
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.bold
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  "${item.artist} - ${item.album}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: textColor
+                  ),
+                ),
+                leading: QueryArtworkWidget(
+                  keepOldArtwork: true,
+                  artworkBorder: BorderRadius.zero,
+                  id: item.id,
+                  type: ArtworkType.AUDIO,
+                  artwork: item.artwork,
+                  deviceSDK: DeviceHelper().sdk,
+                  nullArtworkWidget: Icon(
+                    Icons.music_note, 
                     color: iconColor
-                  );
-                }
-              )
-            ),
+                  )
+                ),
+                trailing: this.showPlayButton? IconButton(
+                  onPressed: () async {
+                    if (isCurrent) {
+                      if (snapshot.data!)
+                        await playerController.pause();
+                      else
+                        playerController.play(isNewSong: false);
+                    } else {
+                      await playerController.play(
+                        index: AudioCustomQuery.musicDataindex[item.data] ?? 0,
+                        isNewSong: true
+                      );
+                    }
+                  },
+                  icon: Icon(
+                      isCurrent && snapshot.data!?
+                      Icons.pause: 
+                      Icons.play_arrow,
+                      color: iconColor
+                    )
+                  ): Container()
+              );
+            }
           ),
         );
       },

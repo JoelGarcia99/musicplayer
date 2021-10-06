@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:musicplayer/data/user_preferences.dart';
-import 'package:musicplayer/helpers/DeviceHelper.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/database/controller.database.dart';
+import 'package:musicplayer/helpers/helper.cache.dart';
+import 'package:musicplayer/helpers/helper.device.dart';
+import 'package:musicplayer/helpers/helper.audio_query.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/router/routes.dart';
 
 import 'generated/l10n.dart';
@@ -15,6 +16,9 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   
   await UserPreferences().initPreferences();
+
+  /// initializing SQFlite
+  await LocalDatabase().init();
 
   /// Extract some useful device info
   await DeviceHelper().init();

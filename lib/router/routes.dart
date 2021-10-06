@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:musicplayer/downloader/youtube/YouTubeScreen.dart';
-import 'package:musicplayer/player/MainScreen.dart';
-import 'package:musicplayer/player/MusicListScreen.dart';
-import 'package:musicplayer/playlist/main_screen.dart';
-import 'package:musicplayer/playlist/playlist_screen.dart';
+import 'package:musicplayer/player/screen.player.dart';
+import 'package:musicplayer/player/screen.music_list.dart';
+import 'package:musicplayer/playlist/screen.all_playlists.dart';
+import 'package:musicplayer/playlist/screen.playlist.dart';
 import 'package:musicplayer/settings/SettingsMainScreen.dart';
 
 class Routes {

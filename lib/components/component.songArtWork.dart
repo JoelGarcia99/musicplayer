@@ -2,7 +2,7 @@ import 'package:animated_overflow/animated_overflow.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:musicplayer/components/component.rotationArtwork.dart';
-import 'package:musicplayer/services/audio_custom_service.dart';
+import 'package:musicplayer/services/controller.audio.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 class PlayerArtWork extends StatelessWidget {

@@ -11,6 +11,7 @@
     "confirm_delete_playlist": "¿Desea eliminar esta playlist? Esta acción es irreversible",
     "delete": "Eliminar",
     "duration": "Duración",
+    "edit": "Editar",
     "enter_valid_name": "Ingrese un nombre válido",
     "language": "Idioma",
     "language_changed": "El idioma ha sido cambiado. Para ver los cambios reinicie la app",
@@ -22,7 +23,10 @@
     "music_player": "Reproductor",
     "next_in_playlist": "Siguientes en playlist",
     "nothing_to_show": "No hay nada que mostrar",
+    "number_songs": "Canciones:",
+    "open": "Abrir",
     "playlists": "Playlists",
+    "playlist_created": "Playlist creada",
     "playlist_was_deleted": "La playlist fue eliminada",
     "save": "Guardar",
     "scan_local_music": "Buscar música en almacenamiento",
@@ -33,5 +37,6 @@
     "there_are_no_items": "No hay elementos",
     "tracks": "Canciones",
     "write_playlist_name": "Nombre de la playlist",
+    "write_playlist_about": "Agrega una descripción",
     "your_current_lan_is": "Tu idioma actual es"
 }

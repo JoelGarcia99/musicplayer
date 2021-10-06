@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/intl.dart';
-import 'package:musicplayer/data/user_preferences.dart';
+import 'package:musicplayer/helpers/helper.cache.dart';
 import 'package:musicplayer/generated/l10n.dart';
-import 'package:musicplayer/helpers/audioQuery.dart';
-import 'package:musicplayer/helpers/languages_helper.dart';
+import 'package:musicplayer/helpers/helper.audio_query.dart';
+import 'package:musicplayer/helpers/helper.languages.dart';
 import 'package:musicplayer/ui/theme.dart';
 
 part 'data.menuSettings.dart';

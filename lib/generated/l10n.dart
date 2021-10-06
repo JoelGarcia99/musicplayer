@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please, enter a valid name`
   String get enter_valid_name {
     return Intl.message(
@@ -270,11 +280,41 @@ class S {
     );
   }
 
+  /// `Songs:`
+  String get number_songs {
+    return Intl.message(
+      'Songs:',
+      name: 'number_songs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open`
+  String get open {
+    return Intl.message(
+      'Open',
+      name: 'open',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Playlists`
   String get playlists {
     return Intl.message(
       'Playlists',
       name: 'playlists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Playlist created!`
+  String get playlist_created {
+    return Intl.message(
+      'Playlist created!',
+      name: 'playlist_created',
       desc: '',
       args: [],
     );
@@ -375,6 +415,16 @@ class S {
     return Intl.message(
       'Write the playlist name',
       name: 'write_playlist_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write the playlist description`
+  String get write_playlist_about {
+    return Intl.message(
+      'Write the playlist description',
+      name: 'write_playlist_about',
       desc: '',
       args: [],
     );
